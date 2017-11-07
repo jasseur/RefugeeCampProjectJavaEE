@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+
+
+<head>
+<link rel="stylesheet" href="ressources/Styles/csslogin/reset.css"/>
+<link rel='stylesheet prefetch' href="ressources/Styles/csslogin/googlef.css"/>
+<link rel='stylesheet prefetch' href="ressources/Styles/csslogin/googlef2.css"/>
+<link rel='stylesheet prefetch' href="ressources/Styles/csslogin/font-awesome.min.css" />
+ <link rel="stylesheet" href="ressources/Styles/csslogin/style.css"/>
+
+  <title>Refugee Camp - Managment System</title>
+</head>
+
+<body>
+  
+<div class="container">
+  <div class="info">
+    <h1>Refugee Camp </h1><span>Managment System <i class="fa fa-arrow-up"></i></span>
+  </div>
+</div>
+
+<div class="form">
+<h4>  International Committee of the Red Cross </h4>
+<br />
+  <div class="container"><img src="ressources/images/login/logo login.PNG"/> <br />
+</div>
+  <form class="register-form">
+  
+    <input type="text" placeholder="name"/>
+    <input type="password" placeholder="Password"/>
+    <input type="text" placeholder="Email address"/>
+    <button>create</button>
+    <p class="message">Already registered? <a href="#">Sign In</a></p>
+  </form>
+  <form class="login-form">
+  <h:form>
+   <h:message for="btn"/>
+   <label> Login or Email address</label>
+   
+    <h:inputText value="#{loginBean.login}" style=" margin: 8px 0;" />
+       <label> Password</label>
+    <h:inputSecret   value="#{loginBean.password}" style=" margin: 8px 0;"/>
+    <h:commandButton action="#{loginBean.doLogin()}" value="Login"  
+   style="  background-color: #f44336; 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+     margin: 8px 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);"/>
+
+   
+    <p class="message">Not registered? <a href="#">Create an account</a></p>
+  </h:form>
+  </form>
+</div>
+ 
+  <script src="ressources/Scripts/jslogin/jquery.js"></script>
+
+ <script  src="ressources/Scripts/jslogin/index.js"></script>
+
+</body>
+</html>
+
