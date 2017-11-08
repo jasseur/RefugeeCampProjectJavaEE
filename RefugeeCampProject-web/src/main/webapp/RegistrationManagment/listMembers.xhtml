@@ -1,0 +1,55 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/template/template.xhtml">
+
+<ui:define name="content" >
+
+<div class="reviews">
+<h4>145 Reviews:</h4>
+
+<!--review-->
+<div class="rev">
+<div class="user"><a href="02.html" class="user_avatars"/>
+<h:form>
+<h:dataTable value="#{memberManagmentBean.members}" var="member" border="1" styleClass="table">
+<h:column>
+<f:facet name="header">
+<h:outputText value="Member Id" />
+</f:facet>
+<h:outputText value="#{member.id}" />
+</h:column>
+<h:column>
+<f:facet name="header">
+<h:outputText value="Email address" />
+</f:facet>
+<h:outputText value="#{member.email}" />
+</h:column>
+<h:column>
+<f:facet name="header">
+<h:outputText value="Login" />
+</f:facet>
+<h:outputText value="#{member.login}" />
+</h:column>
+
+
+<h:column>
+<f:facet name="header">
+<h:outputText value="Action"/>	
+</f:facet>
+<h:commandButton action="#{memberManagmentBean.detailsMember(member)}" value="Details" styleClass="btn btn-info" /> 
+</h:column>
+
+</h:dataTable>
+</h:form>
+</div>
+</div>
+<!--review end-->
+
+
+<!--review end-->
+</div>
+
+</ui:define>
+</ui:composition>

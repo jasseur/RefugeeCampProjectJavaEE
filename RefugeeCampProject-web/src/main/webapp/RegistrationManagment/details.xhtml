@@ -1,0 +1,60 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/template/templateProfile.xhtml">
+
+<ui:define name="content" >
+<div class="container page_info">
+<!--the animated picture-->
+<div class="col_md_12">
+<img src="../ressources/img/avatar/ava_10.jpg" alt=""/>
+<h1>#{memberManagmentBean.member.firstName} #{memberManagmentBean.member.lastName}</h1>
+<span class="status">#{memberManagmentBean.member.role}</span>
+</div>
+</div>
+
+<div class="container contant">
+<div class="row cont">
+<div class="col-md-3 mobile_none sidebar">
+<div class="user_vis">
+<span><i class="fa fa-map-marker"></i>RefugeeCamp</span>
+<div></div>
+</div>
+<!-- hetha to add some menus  !!!!!!!!!  --> 
+</div>
+<div class="col-md-9 basic vp">
+
+
+	<div class="reviews">
+
+<!--review-->
+<div class="rev">
+<div class="user"><a href="02.html" class="user_avatars"/>
+
+</div>
+<div class="texts">
+<div class="head_rev"><h2>Personal Information</h2> </div>
+<h:panelGrid columns="2">
+<h3>Firstname : 
+#{memberManagmentBean.member.firstName}</h3>
+</h:panelGrid>
+<div class="text_rev">
+
+</div>
+</div>
+</div>
+<!--review end-->
+
+
+<!--review end-->
+</div>
+
+</div>
+</div>
+</div>
+
+
+
+</ui:define>
+</ui:composition>

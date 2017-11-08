@@ -13,7 +13,7 @@ import tn.esprit.RefugeeCampProject.Entities.RegistrationManagment.MembershipDem
 @LocalBean
 public  class MembershipDemandManagmentService implements MembershipDemandManagmentServiceRemote {
 
-	@PersistenceContext(unitName="RefugeeMembershipDemandProject-ejb")
+	@PersistenceContext(unitName="RefugeeCampProject-ejb")
 	EntityManager em; 
 	
 	@Override
