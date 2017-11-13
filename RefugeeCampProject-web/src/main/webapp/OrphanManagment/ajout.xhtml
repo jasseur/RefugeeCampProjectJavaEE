@@ -1,0 +1,41 @@
+<body xmlns:h="http://xmlns.jcp.org/jsf/html">
+	
+<h:form id="form">
+
+<h:panelGrid columns="2" xmlns:h="http://java.sun.com/jsf/html"
+                         xmlns:f="http://java.sun.com/jsf/core">
+	<h:outputText value="login" />
+	<h:inputText value="#{loginBean.login}" />
+	
+	<h:outputText value="password" />
+	<h:inputText value="#{loginBean.password}" />
+		
+	<h:outputText value="firstName" />
+	<h:inputText value="#{orphanBean.firstName}"/>
+	
+	<h:outputText value="lastName" />
+	<h:inputText value="#{orphanBean.lastName}"/>
+	
+	<h:outputText value="gender" />
+	<h:inputText value="#{orphanBean.gender}"/>
+	
+	<h:outputText value="age" />
+	<h:inputText  value="#{orphanBean.age}"/>
+	
+	<h:outputText value="nationality" />
+	<h:inputText  value="#{orphanBean.nationality}"/>
+	
+	<h:outputText value="educationLevel" />
+	<h:inputText  value="#{orphanBean.educationLevel}"/>
+	
+	<h:outputText value="activities" />
+	<h:inputText value="#{orphanBean.activities}"/>
+	
+	<h:commandButton action="#{orphanBean.addOrphan()}" value="Ajouter Orphelin" />
+	<h:commandButton action="#{orphanBean.mettreAjourOrphan()}" value="Mettre a jour orphelin" />
+	
+	
+</h:panelGrid>
+
+</h:form>
+</body>

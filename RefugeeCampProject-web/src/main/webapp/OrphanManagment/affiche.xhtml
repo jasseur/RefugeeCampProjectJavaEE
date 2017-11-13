@@ -1,0 +1,80 @@
+<h:panelGrid columns="2" xmlns:h="http://java.sun.com/jsf/html"
+                         xmlns:f="http://java.sun.com/jsf/core">
+
+<h:dataTable value="#{orphanBean.orphans}" var="orphan" border="1">
+<!-- 	<h:column> -->
+<!-- 		<f:facet name="header"> -->
+<!-- 			<h:outputText value="login" /> -->
+<!-- 		</f:facet> -->
+<!-- 		<h:outputText value="#{employee.email}" /> -->
+<!-- 	</h:column> -->
+	
+	
+	<h:column>
+		<f:facet name="header">
+			<h:outputText value="First Name" />
+		</f:facet>
+		<h:outputText value="#{orphan.firstName}" />
+	</h:column>
+	
+	
+	<h:column>
+		<f:facet name="header">
+			<h:outputText value="Last Name" />
+		</f:facet>
+		<h:outputText value="#{orphan.lastName}" />
+	</h:column>
+	
+	
+	<h:column>
+		<f:facet name="header">
+			<h:outputText value="Gender" />
+		</f:facet>
+		<h:outputText value="#{orphan.gender}" />
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<h:outputText value="Age" />
+		</f:facet>
+		<h:outputText value="#{orphan.age}" />
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<h:outputText value="Nationality" />
+		</f:facet>
+		<h:outputText value="#{orphan.nationality}" />
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<h:outputText value="Education Level" />
+		</f:facet>
+		<h:outputText value="#{orphan.educationLevel}" />
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<h:outputText value="Activities" />
+		</f:facet>
+		<h:outputText value="#{orphan.activities}" />
+	</h:column>
+	
+	
+	<h:column>
+		<f:facet name="header">
+			<h:outputText value="Action" />
+		</f:facet>
+		<h:form>
+
+			<h:commandButton action="#{orphanBean.supprimer(orphan.id)}" value="Delete" />
+			<h:commandButton action="#{orphanBean.modifier(orphan)}" value="Edit" />
+		</h:form>
+	</h:column>
+	
+
+     
+</h:dataTable>
+
+</h:panelGrid>
