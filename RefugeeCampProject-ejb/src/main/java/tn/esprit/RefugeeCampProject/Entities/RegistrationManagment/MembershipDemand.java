@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import tn.esprit.RefugeeCampProject.Types.Gender;
+import tn.esprit.RefugeeCampProject.Types.Role;
 
 @Entity
 public class MembershipDemand implements Serializable {
@@ -22,21 +23,45 @@ public class MembershipDemand implements Serializable {
 	private String login;
 	private String email;
 	private String password;
-
+	
 	private String firstName;
 	private String lastName;
 	private Date birthDate;
 	private Date registrationDate;
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
+	@Enumerated(EnumType.STRING)
+	private Role role;
 	private String description;
 	private boolean accepted;
 	
 	@ManyToOne
 	Member member;
 
+
+
+	public MembershipDemand() {
+		super();
+	}
+
+	public MembershipDemand(String login, String email, String password, String firstName, String lastName,
+			Date birthDate, Date registrationDate, Gender gender, Role role, String description, boolean accepted) {
+		super();
+		this.login = login;
+		this.email = email;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.birthDate = birthDate;
+		this.registrationDate = registrationDate;
+		this.gender = gender;
+		this.role = role;
+		this.description = description;
+		this.accepted = accepted;
+	}
+
 	public MembershipDemand(int id, String login, String email, String password, String firstName, String lastName,
-			Date birthDate, Date registrationDate, Gender gender, String description, boolean accepted) {
+			Date birthDate, Date registrationDate, Gender gender, Role role, String description, boolean accepted) {
 		super();
 		this.id = id;
 		this.login = login;
@@ -47,27 +72,9 @@ public class MembershipDemand implements Serializable {
 		this.birthDate = birthDate;
 		this.registrationDate = registrationDate;
 		this.gender = gender;
+		this.role = role;
 		this.description = description;
 		this.accepted = accepted;
-	}
-
-	public MembershipDemand(String login, String email, String password, String firstName, String lastName,
-			Date birthDate, Date registrationDate, Gender gender, String description, boolean accepted) {
-		super();
-		this.login = login;
-		this.email = email;
-		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.birthDate = birthDate;
-		this.registrationDate = registrationDate;
-		this.gender = gender;
-		this.description = description;
-		this.accepted = accepted;
-	}
-
-	public MembershipDemand() {
-		super();
 	}
 
 	public String getLogin() {
@@ -164,6 +171,14 @@ public class MembershipDemand implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 	
 

@@ -64,7 +64,6 @@ public class LoginBean {
 				loggedIn = true;
 		}
 		else{
-			System.out.println("Jasser" + login +" " +password);
 			FacesContext.getCurrentInstance().addMessage("form:btn", new  FacesMessage("bad credentials!!"));
 		}
 	return nvigateTo;

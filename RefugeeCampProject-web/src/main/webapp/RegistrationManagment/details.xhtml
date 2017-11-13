@@ -34,11 +34,33 @@
 
 </div>
 <div class="texts">
-<div class="head_rev"><h2>Personal Information</h2> </div>
-<h:panelGrid columns="2">
+<div class="head_rev"><h2 style="color: red">Personal Information :</h2> </div>
+
 <h3>Firstname : 
 #{memberManagmentBean.member.firstName}</h3>
-</h:panelGrid>
+<h3>Lastname : 
+#{memberManagmentBean.member.lastName}</h3>
+<h3>Birth date : 
+#{memberManagmentBean.member.birthDate.toLocaleString().substring(0,12)}</h3>
+<h3>Gender : 
+#{memberManagmentBean.member.gender}</h3>
+<h3>Email address : 
+#{memberManagmentBean.member.email}</h3>
+
+<h3>Login : 
+#{memberManagmentBean.member.login}</h3>
+
+<h3>Registration date : 
+#{memberManagmentBean.member.registrationDate}</h3>
+
+
+
+<h3>Role : 
+#{memberManagmentBean.member.role}</h3>
+
+<div class="head_rev"><h2 style="color: red">Missions :</h2> </div>
+
+
 <div class="text_rev">
 
 </div>

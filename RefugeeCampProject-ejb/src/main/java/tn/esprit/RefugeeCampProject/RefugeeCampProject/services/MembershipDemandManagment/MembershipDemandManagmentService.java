@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import tn.esprit.RefugeeCampProject.Entities.RegistrationManagment.Member;
 import tn.esprit.RefugeeCampProject.Entities.RegistrationManagment.MembershipDemand;
 
 @Stateless
@@ -33,7 +34,7 @@ public  class MembershipDemandManagmentService implements MembershipDemandManagm
 		em.merge(membershipDemand);
 		em.remove(membershipDemand);
 	}
-
+	
 	@Override
 	public void deleteMembershipDemandById(int membershipDemandId) {
 		MembershipDemand membershipDemandManaged = em.find(MembershipDemand.class, membershipDemandId);
@@ -48,6 +49,25 @@ public  class MembershipDemandManagmentService implements MembershipDemandManagm
 	@Override
 	public List<MembershipDemand> getAllMembershipDemands() {
 		TypedQuery<MembershipDemand> query = em.createQuery("Select c from MembershipDemand c",MembershipDemand.class);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<MembershipDemand> getAllAcceptedMembershipDemands() {
+		TypedQuery<MembershipDemand> query = em.createQuery("Select c from MembershipDemand c where c.accepted=true",MembershipDemand.class);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<MembershipDemand> getAllNotAcceptedMembershipDemands() {
+		TypedQuery<MembershipDemand> query = em.createQuery("Select c from MembershipDemand c where c.accepted=false",MembershipDemand.class);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<MembershipDemand> getAllMembershipDemandsByMemberId(Member member) {
+		TypedQuery<MembershipDemand> query = em.createQuery("Select c from MembershipDemand c where c.member=:member",MembershipDemand.class)
+				.setParameter("member", member);
 		return query.getResultList();
 	}
 

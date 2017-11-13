@@ -1,9 +1,13 @@
 package tn.esprit.RefugeeCampProject.Types;
 
 public enum Role {
-Visitor,
-RegistrationManager,
+
+MembershipManager,
 CampSettingUpManager,
 CampManager,
-MissionManager
+MissionManager,
+RegistrationManager,
+Member,
+Doctor,
+Teacher,
 }

@@ -1,0 +1,85 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/template/templateProfile.xhtml">
+
+<ui:define name="content" >
+<div class="container page_info">
+<!--the animated picture-->
+<div class="col_md_12">
+<img src="../profilepics/#{membershipDemandManagmentBean.membershipDemand.login}.jpg" alt=""/>
+<h1>#{membershipDemandManagmentBean.membershipDemand.firstName} #{membershipDemandManagmentBean.membershipDemand.lastName}</h1>
+<span class="status">#{membershipDemandManagmentBean.membershipDemand.role}</span>
+</div>
+</div>
+
+<div class="container contant">
+<div class="row cont">
+<div class="col-md-3 mobile_none sidebar">
+<div class="user_vis">
+<span><i class="fa fa-map-marker"></i>RefugeeCamp</span>
+<div></div>
+</div>
+<!-- hetha to add some menus  !!!!!!!!!  --> 
+</div>
+<div class="col-md-9 basic vp">
+
+
+	<div class="reviews">
+
+<!--review-->
+<div class="rev">
+<div class="user"><a href="02.html" class="user_avatars"/>
+
+</div>
+#{membershipDemandManagmentBean.membershipDemand.accepted ==true ?"Accepted": "Not Accepted"}
+<div class="texts">
+<div class="head_rev"><h2 style="color: red">Personal Information :</h2> </div>
+
+<h3>Firstname : 
+#{membershipDemandManagmentBean.membershipDemand.firstName}</h3>
+<h3>Lastname : 
+#{membershipDemandManagmentBean.membershipDemand.lastName}</h3>
+<h3>Birth date : 
+#{membershipDemandManagmentBean.membershipDemand.birthDate.toLocaleString().substring(0,12)}</h3>
+<h3>Gender : 
+#{membershipDemandManagmentBean.membershipDemand.gender}</h3>
+<h3>Email address : 
+#{membershipDemandManagmentBean.membershipDemand.email}</h3>
+
+<h3>Login : 
+#{membershipDemandManagmentBean.membershipDemand.login}</h3>
+
+<h3>Registration date : 
+#{membershipDemandManagmentBean.membershipDemand.registrationDate}</h3>
+
+
+
+<h3>Role : 
+#{membershipDemandManagmentBean.membershipDemand.role}</h3>
+
+<div class="head_rev"><h2 style="color: red">Description :</h2> </div>
+<h3>
+#{membershipDemandManagmentBean.membershipDemand.description}</h3>
+
+
+<div class="text_rev">
+
+</div>
+</div>
+</div>
+<!--review end-->
+
+
+<!--review end-->
+</div>
+
+</div>
+</div>
+</div>
+
+
+
+</ui:define>
+</ui:composition>

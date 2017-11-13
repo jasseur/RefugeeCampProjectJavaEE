@@ -40,7 +40,8 @@ public class Member implements Serializable {
 	@OneToMany (mappedBy="member")
 	 List<Mission> missions;
 	
-	
+	@OneToMany (mappedBy="member")
+	 List<MembershipDemand> membershipDemands;
 
 	//constructors
 	public Member() {
@@ -138,6 +139,12 @@ public class Member implements Serializable {
 	}
 	public void setMissions(List<Mission> missions) {
 		this.missions = missions;
+	}
+	public List<MembershipDemand> getMembershipDemands() {
+		return membershipDemands;
+	}
+	public void setMembershipDemands(List<MembershipDemand> membershipDemands) {
+		this.membershipDemands = membershipDemands;
 	}
 	
 	

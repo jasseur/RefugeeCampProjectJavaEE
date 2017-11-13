@@ -30,7 +30,7 @@ public class LoginFilter implements Filter {
 		HttpServletResponse servletResponse =(HttpServletResponse)response;
 		
 		LoginBean loginBean=(LoginBean) servletRequest.getSession().getAttribute("loginBean");
-		if(loginBean !=null && loginBean.getMember().getRole()==Role.RegistrationManager && loginBean.isLoggedIn()|| 
+		if(loginBean !=null && loginBean.getMember().getRole()==Role.MembershipManager && loginBean.isLoggedIn()|| 
 		servletRequest.getRequestURI().toString().contains("login.jsf")){
 			chain.doFilter(servletRequest, servletResponse);
 		}else{

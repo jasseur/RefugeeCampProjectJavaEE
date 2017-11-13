@@ -3,6 +3,7 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
+import tn.esprit.RefugeeCampProject.Entities.RegistrationManagment.Member;
 import tn.esprit.RefugeeCampProject.Entities.RegistrationManagment.MembershipDemand;
 
 
@@ -16,5 +17,8 @@ public interface MembershipDemandManagmentServiceRemote {
 	public void deleteMembershipDemandById(int membershipDemandId);
 	public MembershipDemand getMembershipDemandById(int membershipDemandId);
 	public List<MembershipDemand> getAllMembershipDemands();
+	public List<MembershipDemand> getAllAcceptedMembershipDemands();
+	public List<MembershipDemand> getAllNotAcceptedMembershipDemands();
+	public List<MembershipDemand> getAllMembershipDemandsByMemberId(Member member);
 	
 }
