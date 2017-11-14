@@ -1,6 +1,7 @@
 package tn.esprit.RefugeeCampProject.RefugeeCampProject.presentation.mbeans;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 
 import java.util.List;
 
@@ -21,6 +22,18 @@ public class MemberManagmentBean {
 	private List<Member> members;
 	@EJB
 	MemberManagmentService mms;
+	
+	@ManagedProperty(value="#{loginBean}")
+	LoginBean loginBean;
+	
+	
+	
+	public LoginBean getLoginBean() {
+		return loginBean;
+	}
+	public void setLoginBean(LoginBean loginBean) {
+		this.loginBean = loginBean;
+	}
 	public int getIdMemberToUpdate() {
 		return idMemberToUpdate;
 	}
@@ -42,6 +55,18 @@ public class MemberManagmentBean {
 	
 	public void detailsMember(Member member) {
 		this.member = member;
+	}
+	
+	public String editMember(){
+		this.member=loginBean.getMember();
+		return "myProfileEdit";
+	}
+	
+	public String updateMember(){
+		
+		mms.updateMember(member);
+		loginBean.setMember(member);
+		return "myProfile";
 	}
 	
 }

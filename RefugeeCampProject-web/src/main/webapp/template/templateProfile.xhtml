@@ -1,7 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	   xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<ui:include src="/template/header.xhtml" />	
@@ -12,25 +13,31 @@
 
 <div class="bg_parallax" id="inb">
 <!--navigation swipe-->
-<div class="menu-btn">&#9776;</div>
+<div class="menu-btn">
+<img src=" http://localhost:18080/RefugeeCampProject-web/ressources/images/login/logohome.png" alt="Mycity"/> 
+</div>
 <div class="pushy pushy-left">
 <div class="profile">
-<div class="avatar"><img src=" http://localhost:18080/RefugeeCampProject-web/img/avatar/ava_16.jpg" alt="#"/></div>
-<h3><a href="03.html">Jasser</a></h3>
-<a href="#" class="log_btn">Log in</a>
+<div class="avatar"><img src="/RefugeeCampProject-web/profilepics/#{loginBean.member.login}.jpg" alt="#"/></div>
+<h3><a href="/RefugeeCampProject-web/MembershipManagment/myProfile.xhtml">#{loginBean.member.login}</a></h3>
+<form>
+<h3><a href="/RefugeeCampProject-web/MembershipManagment/myProfile.xhtml">#{loginBean.member.role}</a></h3>
+<!-- logout  -->
+
+</form>
 </div>
+
 <ul class="side_menu">
 <li><a href="index.html"><i class="fa fa-bookmark-o"></i>Promo page</a></li>
 <li><a href="01.html" class="animsition-link"><i class="fa fa-map-marker"></i>Map</a></li>
 <li><a href="05.html"><i class="fa fa-list"></i>Place list</a></li>
 <li><a href="04.html"><i class="fa fa-th"></i>Place grid</a></li>
 <li><a href="02.html"><i class="fa fa-building-o"></i>Place</a></li>
-<li><a href="03.html"><i class="fa fa-user"></i>User profile</a></li>
+<li><a href="/RefugeeCampProject-web/member/listSendedMembershipDemands.xhtml"><i class="fa fa-user"></i>Membership</a></li>
 <li><a href="06.html"><i class="fa fa-book"></i>Blog</a></li>
 <li><a href="07.html"><i class="fa fa-file-powerpoint-o"></i>Open post</a></li>
 </ul>
 </div >
-
 
 
 
@@ -39,10 +46,10 @@
 <div class="fixed_w">
 <div class="row">
 <h:form>
-<div class="col-md-12"><a href="index.html" class="logo">
+<div class="col-md-12">
 
-<img src=" http://localhost:18080/RefugeeCampProject-web/ressources/images/login/logohome.png" alt="Mycity"/> ICRC</a>
-<h:commandButton action="#{loginBean.doLogout()}" value="Logout"  styleClass="green_btn_header"/>
+
+<h:commandButton action="#{loginBean.doLogout()}" value="Logout"  styleClass="green_btn_header btn"/>
 </div>
 </h:form>
 </div>

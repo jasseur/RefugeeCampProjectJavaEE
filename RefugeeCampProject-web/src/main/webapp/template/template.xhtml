@@ -13,13 +13,15 @@
 
 <div class="bg_parallax" id="inb">
 <!--navigation swipe-->
-<div class="menu-btn">&#9776;</div>
+<div class="menu-btn">
+<img src=" http://localhost:18080/RefugeeCampProject-web/ressources/images/login/logohome.png" alt="Mycity"/> 
+</div>
 <div class="pushy pushy-left">
 <div class="profile">
-<div class="avatar"><img src="../profilepics/#{loginBean.member.login}.jpg" alt="#"/></div>
-<h3><a href="03.html">#{loginBean.member.login}</a></h3>
+<div class="avatar"><img src="/RefugeeCampProject-web/profilepics/#{loginBean.member.login}.jpg" alt="#"/></div>
+<h3><a href="/RefugeeCampProject-web/member/myProfile.xhtml">#{loginBean.member.login}</a></h3>
 <form>
-<h3><a href="03.html">#{loginBean.member.role}</a></h3>
+<h3><a href="/RefugeeCampProject-web/member/myProfile.xhtml">#{loginBean.member.role}</a></h3>
 <!-- logout  -->
 
 </form>
@@ -31,7 +33,7 @@
 <li><a href="05.html"><i class="fa fa-list"></i>Place list</a></li>
 <li><a href="04.html"><i class="fa fa-th"></i>Place grid</a></li>
 <li><a href="02.html"><i class="fa fa-building-o"></i>Place</a></li>
-<li><a href="03.html"><i class="fa fa-user"></i>User profile</a></li>
+<li><a href="/RefugeeCampProject-web/member/listSendedMembershipDemands.xhtml"><i class="fa fa-user"></i>Membership</a></li>
 <li><a href="06.html"><i class="fa fa-book"></i>Blog</a></li>
 <li><a href="07.html"><i class="fa fa-file-powerpoint-o"></i>Open post</a></li>
 </ul>
@@ -45,9 +47,8 @@
 <div class="fixed_w">
 <div class="row">
 <h:form>
-<div class="col-md-12"><a href="index.html" class="logo">
+<div class="col-md-12">
 
-<img src=" http://localhost:18080/RefugeeCampProject-web/ressources/images/login/logohome.png" alt="Mycity"/> ICRC</a>
 <h:commandButton action="#{loginBean.doLogout()}" value="Logout"  styleClass="green_btn_header btn"/>
 </div>
 </h:form>
