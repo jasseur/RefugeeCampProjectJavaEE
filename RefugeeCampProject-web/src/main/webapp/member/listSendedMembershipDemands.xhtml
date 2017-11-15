@@ -3,18 +3,32 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	template="/template/template.xhtml">
+	template="/template/templateListMembership.xhtml">
 
 
 <ui:define name="content" >
 
 <div class="place_li_cont">
+<div class="head_rev"><center><h2 style="color: red">Membership demands</h2></center> </div>
 <h:form>
-<h:dataTable value="#{membershipDemandManagmentBean.membershipDemandsByMemberId}" var="membershipDemand" >
-<h:column>
+<a href="addMembershipDemand.xhtml" class="btn" >Add</a>
+<p:dataTable value="#{membershipDemandManagmentBean.membershipDemandsByMemberId}" var="membershipDemand" 
+widgetVar="demandes"
+emptyMessage="No demands found with given criteria"
+filteredValue="#{membershipDemandManagmentBean.membershipDemandsFiltred}">
+ 
+     <f:facet name="header">
+            <p:outputPanel>
+                <h:outputText value="Search :" />
+                <p:inputText id="globalFilter" value="#{membershipDemandManagmentBean.nameFilter}" onkeyup="PF('demandes').filter()" style="width:150px" placeholder="Enter keyword"/>
+            </p:outputPanel>
+      
+        </f:facet>
+<p:column>
 
 <!--place style list-->
 <div class="pg style_list">
+
 <div class="con" >
 <img src="../profilepics/#{membershipDemand.login}.jpg" alt="" />
 <div class="content_li">
@@ -35,8 +49,8 @@
 
 </div>
 
-</h:column>
-</h:dataTable>
+</p:column>
+</p:dataTable>
 
 </h:form>
 </div>

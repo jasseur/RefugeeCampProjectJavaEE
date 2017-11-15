@@ -39,13 +39,14 @@
   </form>
   <form class="login-form">
   <h:form>
+ <p style="color:red"> #{loginBean.message}</p>
    <h:message for="btn"/>
    <label> Login or Email address</label>
    
     <h:inputText value="#{loginBean.login}" style=" margin: 8px 0;" />
        <label> Password</label>
     <h:inputSecret   value="#{loginBean.password}" style=" margin: 8px 0;"/>
-    <h:commandButton action="#{loginBean.doLogin()}" value="Login"  
+    <h:commandButton id="btn" action="#{loginBean.doLogin()}" value="Login"  
    style="  background-color: #f44336; 
     border: none;
     color: white;
@@ -56,9 +57,10 @@
     display: inline-block;
     font-size: 16px;
      box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);"/>
-
+	
    
     <p class="message">Not registered? <a href="#">Create an account</a></p>
+    
   </h:form>
   </form>
 </div>

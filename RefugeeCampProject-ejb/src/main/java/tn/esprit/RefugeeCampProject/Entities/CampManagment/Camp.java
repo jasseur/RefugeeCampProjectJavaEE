@@ -18,8 +18,8 @@ public class Camp implements Serializable {
 	private int id;
 	private String name;
 	private long capacity;
-	private String latitude ;
-	private String longitude; 
+	private double latitude ;
+	private double longitude; 
 		
 	@OneToMany (mappedBy="camp")
 	 List<Mission> missions;
@@ -28,7 +28,7 @@ public class Camp implements Serializable {
 		super();
 	}
 
-	public Camp(String name, long capacity, String latitude, String longitude) {
+	public Camp(String name, long capacity, double latitude, double longitude) {
 		super();
 		this.name = name;
 		this.capacity = capacity;
@@ -36,7 +36,7 @@ public class Camp implements Serializable {
 		this.longitude = longitude;
 	}
 
-	public Camp(int id, String name, long capacity, String latitude, String longitude) {
+	public Camp(int id, String name, long capacity, double latitude, double longitude) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -63,16 +63,16 @@ public class Camp implements Serializable {
 	public void setCapacity(long capacity) {
 		this.capacity = capacity;
 	}
-	public String getLatitude() {
+	public double getLatitude() {
 		return latitude;
 	}
-	public void setLatitude(String latitude) {
+	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
-	public String getLongitude() {
+	public double getLongitude() {
 		return longitude;
 	}
-	public void setLongitude(String longitude) {
+	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
 

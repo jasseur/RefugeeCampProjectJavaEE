@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/template/templateListMembership.xhtml">
+
+
+<ui:define name="content" >
+
+<div class="place_li_cont">
+<div class="head_rev"><center><h2 style="color: red">Camps</h2></center> </div>
+<h:form>
+<a href="addCamp.xhtml" class="btn" >Add</a>
+<h:dataTable value="#{campManagmentBean.camps}" var="camp" >
+<h:column>
+
+<!--place style list-->
+<div class="pg style_list">
+
+<div class="con" >
+<img src="../ressources/img/camp.jpg" alt="" />
+<div class="content_li">
+<h2><a> Name : #{camp.name}</a><span></span></h2>
+<span>
+Capacity : #{camp.capacity}
+</span>
+
+
+</div>
+<div class="content_li">
+
+</div>
+</div>
+
+</div>
+
+</h:column>
+</h:dataTable>
+
+</h:form>
+</div>
+</ui:define>
+</ui:composition>

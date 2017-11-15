@@ -14,7 +14,6 @@ import javax.ejb.EJB;
 
 
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.servlet.http.Part;
 
 import tn.esprit.RefugeeCampProject.Entities.RegistrationManagment.Member;
@@ -30,6 +29,8 @@ public class MembershipDemandManagmentBean {
 	private int idMembershipDemand;
 	private MembershipDemand membershipDemand = new MembershipDemand();
 	private List<MembershipDemand> membershipDemands;
+	private List<MembershipDemand> membershipDemandsFiltred;
+	private String nameFilter;
 	private Part file;
 	@EJB
 	MembershipDemandManagmentService mdms;
@@ -73,6 +74,21 @@ public class MembershipDemandManagmentBean {
 		this.membershipDemand = membershipDemand;
 	}
 	
+	
+	
+
+	public String getNameFilter() {
+		return nameFilter;
+	}
+
+	public void setNameFilter(String nameFilter) {
+		this.nameFilter = nameFilter;
+	}
+
+	public void setMembershipDemandsFiltred(List<MembershipDemand> membershipDemandsFiltred) {
+		this.membershipDemandsFiltred = membershipDemandsFiltred;
+	}
+
 	//membership demands viewed by manager only
 	public List<MembershipDemand> getMembershipDemands() {
 		this .membershipDemands = mdms.getAllNotAcceptedMembershipDemands();
@@ -99,7 +115,7 @@ public class MembershipDemandManagmentBean {
 		    }
 		    catch (IOException e) {
 		        // Show faces message?
-		    }
+		    } 
 	return "listSendedMembershipDemands?faces-redirect = true";
 	}
 
@@ -140,8 +156,12 @@ public class MembershipDemandManagmentBean {
 		return "listMembershipDemands";	
 	}
 	
-	public void save() {
-	  
+
+	
+	public List<MembershipDemand> getMembershipDemandsFiltred() {
+		this .membershipDemands = mdms.getAllMembershipDemandsByMembeNameLike(this.nameFilter);
+		this.membershipDemandsFiltred = membershipDemands;
+		return membershipDemands;
 	}
 	
 }

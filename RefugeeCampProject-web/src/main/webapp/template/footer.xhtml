@@ -4,10 +4,12 @@
 	xmlns:h="http://java.sun.com/jsf/html">
 
 		
-<script src="/RefugeeCampProject-web/ressources/Scripts/jslogin/jquery.js"></script>
+
 		<!--Google maps API linl-->
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCsbzuJDUEOoq-jS1HO-LUXW4qo0gW9FNs"></script>
 
+<!-- <script src="/RefugeeCampProject-web/ressources/Scripts/jslogin/jquery.js"></script>
+ -->
 <script src=" /RefugeeCampProject-web/ressources/js/map_index.js"></script>
 <!--scroll animate block-->
 <script src=" /RefugeeCampProject-web/ressources/js/wow.min.js"></script>
@@ -23,6 +25,7 @@
 <script type="text/javascript" src="/RefugeeCampProject-web/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
 <!--Parallax-->
 <script type="text/javascript" src=" /RefugeeCampProject-web/ressources/js/jquery.parallax-0.2-min.js"></script>
+<script type="text/javascript" src="/RefugeeCampProject-web/ressources/datatable/jquery.dataTables.min.js"></script>
 <!-- date -->
 <!--Parallax bg-->
 <script type="text/javascript">
@@ -52,7 +55,45 @@ $('#inb').parallax({
 });
 </script>		
 				
-				
+			
+			
+			<script type="text/javascript">
+    var currentMarker = null;
+ 
+    function handlePointClick(event) {
+        if(currentMarker === null) {
+            document.getElementById('lat').value = event.latLng.lat();
+            document.getElementById('lng').value = event.latLng.lng();
+            var image = ' http://localhost:18080/RefugeeCampProject-web/ressources/images/login/logohome.png';
+            
+            currentMarker = new google.maps.Marker({
+                position:new google.maps.LatLng(event.latLng.lat(), event.latLng.lng())
+            	,icon: image
+             });
+ 
+            PF('map').addOverlay(currentMarker);
+ 
+            PF('dlg').show();
+        }   
+    }
+ 
+    function markerAddComplete() {
+        var title = document.getElementById('name');
+        currentMarker.setTitle(title.value);
+        title.value = "";
+ 
+        currentMarker = null;
+        PF('dlg').hide();
+    }
+ 
+    function cancel() {
+        PF('dlg').hide();
+        currentMarker.setMap(null);
+        currentMarker = null;
+ 
+        return false;
+    }
+</script>	
 	<center>TheVolunteers-Team 2018 </center>
 
 

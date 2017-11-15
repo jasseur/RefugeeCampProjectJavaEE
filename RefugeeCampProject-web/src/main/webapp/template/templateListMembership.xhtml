@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<ui:include src="/template/header.xhtml" />	
+</h:head>
+
+<h:body onload="initialize()" class="inner_page innerpage">
+
+
+<div class="bg_parallax" id="inb">
+<!--navigation swipe-->
+<div class="menu-btn">
+<img src=" http://localhost:18080/RefugeeCampProject-web/ressources/images/login/logohome.png" alt="Mycity"/> 
+</div>
+<div class="pushy pushy-left">
+<div class="profile">
+<div class="avatar"><img src="/RefugeeCampProject-web/profilepics/#{loginBean.member.login}.jpg" alt="#"/></div>
+<h3><a href="/RefugeeCampProject-web/member/myProfile.xhtml">#{loginBean.member.login}</a></h3>
+<form>
+<h3><a href="/RefugeeCampProject-web/member/myProfile.xhtml">#{loginBean.member.role}</a></h3>
+<!-- logout  -->
+
+</form>
+</div>
+
+<ul class="side_menu">
+<li><a href="index.html"><i class="fa fa-bookmark-o"></i>Promo page</a></li>
+<li><a href="01.html" class="animsition-link"><i class="fa fa-map-marker"></i>Map</a></li>
+<li><a href="05.html"><i class="fa fa-list"></i>Place list</a></li>
+<li><a href="04.html"><i class="fa fa-th"></i>Place grid</a></li>
+<li><a href="02.html"><i class="fa fa-building-o"></i>Place</a></li>
+<li><a href="/RefugeeCampProject-web/member/listSendedMembershipDemands.xhtml"><i class="fa fa-user"></i>Membership</a></li>
+<li><a href="06.html"><i class="fa fa-book"></i>Blog</a></li>
+<li><a href="07.html"><i class="fa fa-file-powerpoint-o"></i>Open post</a></li>
+</ul>
+</div >
+
+
+
+
+<!--header-->
+<div class="container-fluid header inner_head">
+<div class="fixed_w">
+<div class="row">
+<h:form>
+<div class="col-md-12">
+
+<h:commandButton action="#{loginBean.doLogout()}" value="Logout"  styleClass="green_btn_header btn"/>
+</div>
+</h:form>
+</div>
+</div>
+</div>
+</div>
+<div class="container page_info">
+<!--the animated picture-->
+
+</div>
+
+<div class="container contant">
+<div class="row cont">
+<div class="col-md-3 mobile_none sidebar">
+<div class="user_vis">
+
+<span><a href="../membershipManager/listMembershipDemands.xhtml"><i class="fa fa-map-marker"></i>Membership damands</a></span>
+
+<div></div>
+</div>
+<!-- hetha to add some menus  !!!!!!!!!  --> 
+</div>
+<div class="col-md-9 basic vp">
+
+	<ui:insert name="content">
+	<!-- lenna on add our main thinks -->
+	</ui:insert>
+
+
+</div>
+</div>
+</div>
+
+
+
+
+
+	
+	
+	<ui:include src="/template/footer.xhtml" />
+</h:body>
+
+</html>
+

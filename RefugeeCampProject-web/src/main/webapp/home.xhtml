@@ -2,15 +2,26 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	
+		xmlns:p="http://primefaces.org/ui"
 	template="/template/template.xhtml"
 >
 
 
 
 <ui:define name="content" >
+<h:form>
+<p:dataTable value="#{memberManagmentBean.members}" var="member" widgetVar="carsTable"
+emptyMessage="No camp found with given criteria" filteredValue="#{dtFilterView.filteredCars}">>
 
-f
+        <f:facet name="header">
+            <p:outputPanel>
+                <h:outputText value="Search all fields:" />
+                <p:inputText id="globalFilter" onkeyup="PF('carsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+            </p:outputPanel>
+        </f:facet>
+</p:dataTable>
+</h:form>
+
 
 </ui:define>
 </ui:composition>

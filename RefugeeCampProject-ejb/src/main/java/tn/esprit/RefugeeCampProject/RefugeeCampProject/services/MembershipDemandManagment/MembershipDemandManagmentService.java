@@ -70,5 +70,11 @@ public  class MembershipDemandManagmentService implements MembershipDemandManagm
 				.setParameter("member", member);
 		return query.getResultList();
 	}
+	
+	public List<MembershipDemand> getAllMembershipDemandsByMembeNameLike(String name) {
+		TypedQuery<MembershipDemand> query = em.createQuery("Select c from MembershipDemand c where c.firstName like :name",MembershipDemand.class)
+				.setParameter("name", "%"+name+"%");
+		return query.getResultList();
+	}
 
 }

@@ -17,6 +17,7 @@ public class LoginBean {
 	private String password;
 	private Member member;
 	private boolean loggedIn; 
+	private String message;
 	@EJB
 	MemberManagmentService mms;
 	
@@ -60,11 +61,12 @@ public class LoginBean {
 		member = mms.getMemberByLoginAndPasswod(login, password);
 		
 		if(member != null ){
-				nvigateTo = "/home?faces-redirect=true";
+				nvigateTo = "home";
 				loggedIn = true;
 		}
 		else{
 			FacesContext.getCurrentInstance().addMessage("form:btn", new  FacesMessage("bad credentials!!"));
+			this.message="check Login and password!!";
 		}
 	return nvigateTo;
 		
@@ -74,4 +76,15 @@ public class LoginBean {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		return "/login?faces-redirect=true";
 	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
+	
+	
 }

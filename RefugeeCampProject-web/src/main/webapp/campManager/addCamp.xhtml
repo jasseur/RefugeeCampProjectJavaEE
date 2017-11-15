@@ -1,0 +1,42 @@
+<ui:composition xmlns:xs="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/template/template.xhtml">
+
+
+
+<ui:define name="content" >
+<h1> Add new camp</h1>
+<p:growl id="messages" showDetail="true" />
+ 
+<p:gmap id="gmap" center="36.821167, 10.125222" zoom="13" type="HYBRID" style="width:100%;height:400px"
+    model="#{campManagmentBean.emptyModel}" onPointClick="handlePointClick(event);" widgetVar="map" />
+ 
+<p:dialog widgetVar="dlg" showEffect="fade">
+    <h:form prependId="false">
+        <h:panelGrid columns="2">
+            <h:outputLabel for="name" value="Name:" />
+            <p:inputText id="name" value="#{campManagmentBean.camp.name}"
+             required="true" />
+            <h:outputLabel for="capacity" value="Capacity:" />
+            <p:inputText id="capacity" value="#{campManagmentBean.camp.capacity}"
+            
+           />
+ 
+            <f:facet name="footer">
+            <a href="listCamps.xhtml">
+                <p:commandButton  value="Add Camp" actionListener="#{campManagmentBean.addNewCamp}" update=":messages" oncomplete="markerAddComplete()" />
+               </a>
+                <p:commandButton value="Cancel" onclick="return cancel()" />
+            </f:facet>
+        </h:panelGrid>
+ 
+        <h:inputHidden id="lat" value="#{campManagmentBean.camp.latitude}" />
+        <h:inputHidden id="lng" value="#{campManagmentBean.camp.longitude}" />
+    </h:form>
+</p:dialog>
+
+</ui:define>
+</ui:composition>
