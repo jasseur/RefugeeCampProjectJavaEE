@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import tn.esprit.RefugeeCampProject.Entities.RegistrationManagment.Member;
 @Entity
 public class Mission implements Serializable {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;

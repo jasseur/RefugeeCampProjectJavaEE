@@ -19,5 +19,7 @@ public interface MissionManagmentServiceRemote {
 	public void deleteMissionById(int MissionId);
 	public Mission getMissionById(int missionId);
 	public List<Mission> getAllMissions();
-	
+	public boolean checkStaffAccount(String staffLogin) throws Exception;
+	public String checkStaffAccountStringReturn(String staffLogin) throws Exception;
+	public String addNewStaff(Mission mission);
 }
