@@ -10,7 +10,7 @@
 <ui:define name="content" >
 <div>
 
-<h1> <center>Add new member</center> </h1>
+<h1> <center>Edit prfile</center> </h1>
 </div>
 <div class="col-sm-2"></div>
 <div >
@@ -22,11 +22,11 @@
 <div class="form-group">
 <h:outputText value="FirstName"  styleClass="control-label col-md-4"/>
 <div class="col-md-8">
-<p:inputText id="firstname"  value="#{membershipDemandManagmentBean.membershipDemand.firstName}"  styleClass="form-control"
+<p:inputText id="firstname"  value="#{memberManagmentBean.member.firstName}"  styleClass="form-control"
 required="true"
 requiredMessage="*The firstname field is required"
 />
-<p:message for="firstname" style="color: red"/>
+<h:message for="firstname" style="color: red"/>
 </div>
 
 </div>
@@ -34,12 +34,12 @@ requiredMessage="*The firstname field is required"
 <div class="form-group">
 <h:outputText value="LastName"  styleClass="control-label col-md-4"/>
  <div class="col-md-8">
-<p:inputText id="lastname" value="#{membershipDemandManagmentBean.membershipDemand.lastName}" 
+<h:inputText id="lastname" value="#{memberManagmentBean.member.lastName}" 
 styleClass="form-control"
 required="true"
 requiredMessage="*The lastname field is required"
  />
- <p:message for="lastname" style="color: red"/>
+ <h:message for="lastname" style="color: red"/>
 </div>
 
 </div>
@@ -47,61 +47,57 @@ requiredMessage="*The lastname field is required"
 <div class="form-group">
 <h:outputText value="Birth Date" styleClass="control-label col-md-4"/>
  <div class="col-md-8">
-<p:calendar value="#{membershipDemandManagmentBean.membershipDemand.birthDate}"   
+<h:inputText value="#{memberManagmentBean.member.birthDate}"   
 id="popup"
 required="true"
 requiredMessage="*The Birth Date field is required"
-pattern="dd-MM-yyyy"
 >
-
-</p:calendar> 
- <p:message for="popup" style="color: red"/>
+<f:convertDateTime pattern="dd-MM-yyyy"/>
+</h:inputText> 
+ <h:message for="popup" style="color: red"/>
 </div>
 </div>
 
 <div class="form-group">
 <h:outputText value="Gender" styleClass="control-label col-md-4"/>
  <div class="col-md-8">
-<h:selectOneMenu value="#{membershipDemandManagmentBean.membershipDemand.gender}" styleClass="form-control"
+<h:selectOneMenu value="#{memberManagmentBean.member.gender}" styleClass="form-control"
 id="gender" 
 required="true"
 requiredMessage="*The Gender field is required"
-style="width: 200px;"
 >
 <f:selectItem itemLabel="Select  gender" itemValue=""/>
 <f:selectItems value="#{myData.genders}"/>
 </h:selectOneMenu>
- <p:message for="gender" style="color: red"/>
+ <h:message for="gender" style="color: red"/>
 </div>
 </div>
 
 <div class="form-group">
 <h:outputText   value="Email" styleClass="control-label col-md-4"/>
  <div class="col-md-8">
-<p:inputText id="email" value="#{membershipDemandManagmentBean.membershipDemand.email}" 
+<h:inputText id="email" value="#{memberManagmentBean.member.email}" 
 styleClass="form-control"
-validatorMessage="Email does not match pattern."
+
 >
 
-</p:inputText>
-<p:message for="email" style="color: red"/>
+ <f:validator validatorId="RefugeeCampProject.EmailValidator" />
+</h:inputText>
+<h:message for="email" style="color: red"/>
 
 </div>
 </div>
-
-
-
 
 <div class="form-group">
 
 <h:outputText value="Login" styleClass="control-label col-md-4"/>
  <div class="col-md-8">
-<p:inputText value="#{membershipDemandManagmentBean.membershipDemand.login}" styleClass="form-control"
+<h:inputText value="#{memberManagmentBean.member.login}" styleClass="form-control"
 id="login" 
 required="true"
 requiredMessage="*The login field is required"
 />
-<p:message for="login" style="color: red"/>
+<h:message for="login" style="color: red"/>
 </div>
 </div>
 <div class="form-group">
@@ -110,29 +106,22 @@ requiredMessage="*The login field is required"
 </div>
 
 <div class="form-group">
-<h:outputText value="Photo "  styleClass="control-label col-md-2"/>
+<h:outputText value="Photo "  styleClass="control-label col-md-4"/>
  <div class="col-md-8">
-<!--    <p:fileUpload value="#{membershipDemandManagmentBean.file}" -->
-<!--     id="photo"  -->
-<!-- 	required="true" -->
-<!-- 	requiredMessage="*The photo field is required"> -->
-        
-<!--     </p:fileUpload> -->
-
- <h:inputFile value="#{membershipDemandManagmentBean.file}"
+   <h:inputFile value="#{membershipDemandManagmentBean.file}"
    id="photo" 
-required="true"
-requiredMessage="*The photo field is required">
+
+>
         <f:ajax listener="#{membershipDemandManagmentBean.save()}" />
     </h:inputFile>
-    <p:message for="photo" style="color: red"/>
+    <h:message for="photo" style="color: red"/>
 </div>
 </div>
 
 <div class="form-group">
 <h:outputText value="Role" styleClass="control-label col-md-4" />
  <div class="col-md-8">
-<h:selectOneMenu value="#{membershipDemandManagmentBean.membershipDemand.role}" styleClass="form-control"
+<h:selectOneMenu value="#{memberManagmentBean.member.role}" styleClass="form-control"
    id="role" 
 required="true"
 requiredMessage="*The role field is required"
@@ -140,26 +129,15 @@ requiredMessage="*The role field is required"
 <f:selectItem itemLabel="Select a role" itemValue=""/>
 <f:selectItems value="#{myData.roles}"/>
 </h:selectOneMenu>
-   <p:message for="role" style="color: red"/>
+   <h:message for="role" style="color: red"/>
 </div>
 </div>
-<div class="form-group">
-<h:outputText value="Description" styleClass="control-label col-md-2"/>
- <div class="col-md-8">
-<p:inputTextarea  value="#{membershipDemandManagmentBean.membershipDemand.description}"  styleClass="form-control"
-  style="width: 400px;"
-   id="Description" 
-required="true"
-requiredMessage="*The Description field is required"
-/>
-   <p:message for="Description" style="color: red"/>
-</div>
-</div>
+
 <div class="form-group">
  <div class="col-md-4">
  </div>
  <div class="col-md-4">
-<h:commandButton action="#{membershipDemandManagmentBean.addNewMember()}" value="Add demand" styleClass="btn btn-default"  />
+<h:commandButton action="#{memberManagmentBean.updateMember()}" value="Update" styleClass="btn btn-default"  />
 </div>
 </div>
 

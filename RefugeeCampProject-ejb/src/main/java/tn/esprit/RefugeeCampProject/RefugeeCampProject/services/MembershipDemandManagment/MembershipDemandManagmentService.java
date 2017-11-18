@@ -70,11 +70,31 @@ public  class MembershipDemandManagmentService implements MembershipDemandManagm
 				.setParameter("member", member);
 		return query.getResultList();
 	}
-	
+	@Override
 	public List<MembershipDemand> getAllMembershipDemandsByMembeNameLike(String name) {
 		TypedQuery<MembershipDemand> query = em.createQuery("Select c from MembershipDemand c where c.firstName like :name",MembershipDemand.class)
 				.setParameter("name", "%"+name+"%");
 		return query.getResultList();
 	}
+
+	@Override
+	public boolean checkLogin(String login) {
+		TypedQuery<MembershipDemand> queryMembershipDemand = em.createQuery("Select c from MembershipDemand c where c.login=:login",MembershipDemand.class)
+				.setParameter("login", login);
+		TypedQuery<Member> queryMember = em.createQuery("Select m from Member m where m.login=:login",Member.class)
+				.setParameter("login", login);
+		if( queryMembershipDemand.getSingleResult() == null && 
+				queryMember.getSingleResult() == null )
+			return false;
+		
+			return true;
+	}
+
+	@Override
+	public boolean checkEmail(String email) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 
 }

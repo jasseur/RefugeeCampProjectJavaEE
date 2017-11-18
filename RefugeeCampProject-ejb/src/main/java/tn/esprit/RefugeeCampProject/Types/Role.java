@@ -10,4 +10,5 @@ RegistrationManager,
 Member,
 Doctor,
 Teacher,
+Visitor,
 }

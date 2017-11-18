@@ -1,0 +1,35 @@
+<html 	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<!-- this for CampSettingUpManager -->
+<c:if test="#{loginBean.member.role == myData.roles[1]}">
+<ul class="side_menu">
+<li><a href="index.html"><i class="fa fa-bookmark-o"></i>Promo page</a></li>
+
+<li><a href="/RefugeeCampProject-web/campManager/addCamp.xhtml" class="animsition-link"><i class="fa fa-map-marker"></i>Add Camp</a></li>
+<li><a href="/RefugeeCampProject-web/campManager/listCamps.xhtml"><i class="fa fa-list"></i>List camps</a></li>
+<li><a href="04.html"><i class="fa fa-th"></i>Place grid</a></li>
+<li><a href="02.html"><i class="fa fa-building-o"></i>Place</a></li>
+<li><a href=""><i class="fa fa-user"></i>Membership</a></li>
+<li><a href="06.html"><i class="fa fa-book"></i>Blog</a></li>
+<li><a href="07.html"><i class="fa fa-file-powerpoint-o"></i>Open post</a></li>
+</ul>
+
+</c:if>
+
+<!-- this for MembershipManager -->
+<c:if test="#{loginBean.member.role == myData.roles[0]}">
+<ul class="side_menu">
+<li><a href="index.html"><i class="fa fa-bookmark-o"></i>Promo page</a></li>
+<li><a href="/RefugeeCampProject-web/campManager/addCamp.xhtml" class="animsition-link"><i class="fa fa-map-marker"></i>Add Camp</a></li>
+<li><a href="05.html"><i class="fa fa-list"></i>Place list</a></li>
+<li><a href="04.html"><i class="fa fa-th"></i>Place grid</a></li>
+<li><a href="02.html"><i class="fa fa-building-o"></i>Place</a></li>
+<li><a href="/RefugeeCampProject-web/member/listSendedMembershipDemands.xhtml"><i class="fa fa-user"></i>Membership</a></li>
+<li><a href="06.html"><i class="fa fa-book"></i>Blog</a></li>
+<li><a href="07.html"><i class="fa fa-file-powerpoint-o"></i>Open post</a></li>
+</ul>
+
+</c:if>
+
+</html>
+

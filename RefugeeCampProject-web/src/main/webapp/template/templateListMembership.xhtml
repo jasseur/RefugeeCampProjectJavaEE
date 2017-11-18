@@ -18,7 +18,7 @@
 </div>
 <div class="pushy pushy-left">
 <div class="profile">
-<div class="avatar"><img src="/RefugeeCampProject-web/profilepics/#{loginBean.member.login}.jpg" alt="#"/></div>
+<div class="avatar"><img src="http://localhost:8081/RefugeeCampProjectJEE/profilepics/#{loginBean.member.login}.jpg" alt="#"/></div>
 <h3><a href="/RefugeeCampProject-web/member/myProfile.xhtml">#{loginBean.member.login}</a></h3>
 <form>
 <h3><a href="/RefugeeCampProject-web/member/myProfile.xhtml">#{loginBean.member.role}</a></h3>
@@ -27,16 +27,7 @@
 </form>
 </div>
 
-<ul class="side_menu">
-<li><a href="index.html"><i class="fa fa-bookmark-o"></i>Promo page</a></li>
-<li><a href="01.html" class="animsition-link"><i class="fa fa-map-marker"></i>Map</a></li>
-<li><a href="05.html"><i class="fa fa-list"></i>Place list</a></li>
-<li><a href="04.html"><i class="fa fa-th"></i>Place grid</a></li>
-<li><a href="02.html"><i class="fa fa-building-o"></i>Place</a></li>
-<li><a href="/RefugeeCampProject-web/member/listSendedMembershipDemands.xhtml"><i class="fa fa-user"></i>Membership</a></li>
-<li><a href="06.html"><i class="fa fa-book"></i>Blog</a></li>
-<li><a href="07.html"><i class="fa fa-file-powerpoint-o"></i>Open post</a></li>
-</ul>
+	<ui:include src="/template/sideMenu.xhtml" />
 </div >
 
 

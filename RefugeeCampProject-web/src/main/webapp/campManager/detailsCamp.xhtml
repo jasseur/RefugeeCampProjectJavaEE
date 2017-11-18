@@ -1,0 +1,82 @@
+<ui:composition xmlns:xs="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/template/templateProfile.xhtml">
+
+
+
+<ui:define name="content" >
+
+ 
+ 
+ <div class="container page_info">
+<!--the animated picture-->
+<div class="col_md_12">
+<img src="../ressources/images/login/logo login.PNG" alt=""/>
+<h1>#{campManagmentBean.selectedCamp.name}</h1>
+<span class="status">#{campManagmentBean.selectedCamp.capacity}</span>
+</div>
+</div>
+
+<div class="container contant">
+<div class="row cont">
+<div class="col-md-3 mobile_none sidebar">
+<div class="user_vis">
+<span><i class="fa fa-map-marker"></i>RefugeeCamp</span>
+<div></div>
+</div>
+<div class="user_friends">
+<div class="users_group">
+
+<div class="user_go">
+<i class="fa fa-link"></i>
+</div>
+<h:commandLink action="#{membershipDemandManagmentBean.acceptDemand()}" value="" >
+<img src="../profilepics/Jawhar.jpg" alt="" style="width:50px;height:50px" />
+</h:commandLink>
+</div>
+</div></div>
+<!-- hetha to add some menus  !!!!!!!!!  --> 
+
+<div class="col-md-9 basic vp">
+<p:growl id="messages" showDetail="true" />
+ 
+<p:gmap id="gmap" center="#{campManagmentBean.selectedCamp.latitude}, #{campManagmentBean.selectedCamp.longitude}" zoom="13" type="HYBRID" style="width:100%;height:400px"
+    model="#{campManagmentBean.detailsModel}"  />
+ 
+
+	<div class="reviews">
+
+<!--review-->
+<div class="rev">
+
+<div class="user"><a href="02.html" class="user_avatars"/>
+
+</div>
+
+
+
+<div class="texts">
+
+<div class="text_rev">
+
+</div>
+</div>
+</div>
+<!--review end-->
+
+
+<!--review end-->
+</div>
+
+</div>
+</div>
+</div>
+
+
+
+</ui:define>
+
+</ui:composition>

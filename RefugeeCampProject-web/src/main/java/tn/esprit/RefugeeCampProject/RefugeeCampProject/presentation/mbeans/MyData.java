@@ -4,6 +4,7 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import tn.esprit.RefugeeCampProject.Types.Gender;
 import tn.esprit.RefugeeCampProject.Types.Role;
+import tn.esprit.RefugeeCampProject.Types.RoleSelectList;
 
 
 @ManagedBean
@@ -16,5 +17,9 @@ public Role[] getRoles(){
 
 public Gender[] getGenders(){
 	return Gender.values();
+}
+
+public RoleSelectList[] getSelectListRoles(){
+	return RoleSelectList.values();
 }
 }

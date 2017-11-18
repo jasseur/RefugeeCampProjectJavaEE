@@ -16,5 +16,7 @@ public interface RegistrationServiceRemote {
 	public Member getMemberById(int memberId);
 	public Member getMemberByLoginAndPasswod(String login,String password);
 	public List<Member> getAllMembers();
+	public boolean checkLogin(String login);
+	public boolean checkEmail(String email);
 	
 }

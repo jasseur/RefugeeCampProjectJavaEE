@@ -30,7 +30,7 @@ filteredValue="#{membershipDemandManagmentBean.membershipDemandsFiltred}">
 <div class="pg style_list">
 
 <div class="con" >
-<img src="../profilepics/#{membershipDemand.login}.jpg" alt="" />
+<img src="http://localhost:8081/RefugeeCampProjectJEE/profilepics/#{membershipDemand.login}.jpg" alt="" />
 <div class="content_li">
 <h2><a >#{membershipDemand.firstName} #{membershipDemand.lastName}</a><span></span></h2>
 <a>#{membershipDemand.registrationDate.toString().substring(0,16)} </a>
@@ -41,9 +41,10 @@ filteredValue="#{membershipDemandManagmentBean.membershipDemandsFiltred}">
 
 </div>
 <div class="content_li">
+<h:form>
 <h:commandButton action="#{membershipDemandManagmentBean.detailsSendedMembership(membershipDemand)}" value="Details" styleClass="btn btn-info" />
 <h:commandButton action="#{membershipDemandManagmentBean.detailsSendedMembership(membershipDemand)}" value="Delete" styleClass="btn btn-default" onclick="return confirm('You want to delete?');"/>
-
+</h:form>
 </div>
 </div>
 

@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/template/templateProfile.xhtml">
+
+<ui:define name="content" >
+
+
+<p:growl id="messages" showDetail="true" />
+<h:form>
+<p:gmap id="gmap" center="36.827836581647489,10.097293853759766" zoom="10" type="HYBRID" style="width:100%;height:700px"
+ model="#{campManagmentBean.allcampsModel}" 
+ onPointClick="handlePointClick(event);" widgetVar="map"
+ >
+ 
+    <p:ajax event="overlaySelect" listener="#{campManagmentBean.onMarkerSelect}" />
+ 
+        <p:gmapInfoWindow id="infoWindow">
+            <p:outputPanel style="text-align: center; display: block; margin: auto">
+                    <h3> Name : #{campManagmentBean.selectedCamp.name} </h3>                   
+                    <h3> Capacity : #{campManagmentBean.selectedCamp.capacity} </h3>                  
+                    <p:commandButton action="#{campManagmentBean.detailsCamp}" value="Details" styleClass="btn btn-primary mb1 bg-blue"/>
+                    <p:commandButton action="#{campManagmentBean.addNewCamp}" value="Update" styleClass="btn btn-primary "/>
+                    
+             </p:outputPanel>
+        </p:gmapInfoWindow> 
+        
+        
+ </p:gmap>
+</h:form>
+
+<p:dialog widgetVar="dlg" showEffect="fade">
+    <h:form prependId="false">
+        <h:panelGrid columns="2">
+            <h:outputLabel for="name" value="Name:" />
+            <p:inputText id="name" value="#{campManagmentBean.newCamp.name}"
+             required="true" />
+            <h:outputLabel for="capacity" value="Capacity:" />
+            <p:inputText id="capacity" value="#{campManagmentBean.newCamp.capacity}"
+            
+           />
+ 
+            <f:facet name="footer">
+            <a href="listCamps.xhtml">
+                <p:commandButton  value="Add Camp" actionListener="#{campManagmentBean.addNewCamp}" update=":messages" oncomplete="markerAddComplete()" ajax="false"/>
+               </a>
+                <p:commandButton value="Cancel" onclick="return cancel()" />
+            </f:facet>
+        </h:panelGrid>
+ 
+        <h:inputHidden id="lat" value="#{campManagmentBean.newCamp.latitude}" />
+        <h:inputHidden id="lng" value="#{campManagmentBean.newCamp.longitude}" />
+    </h:form>
+</p:dialog>
+ <!-- camp info popup -->
+
+   
+
+
+
+
+</ui:define>
+</ui:composition>

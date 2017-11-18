@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +15,11 @@ import javax.ejb.EJB;
 
 
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.servlet.http.Part;
+
+import org.apache.commons.io.FileUtils;
+import org.primefaces.model.UploadedFile;
 
 import tn.esprit.RefugeeCampProject.Entities.RegistrationManagment.Member;
 import tn.esprit.RefugeeCampProject.Entities.RegistrationManagment.MembershipDemand;
@@ -22,7 +27,7 @@ import tn.esprit.RefugeeCampProject.RefugeeCampProject.services.MembershipDemand
 import tn.esprit.RefugeeCampProject.RefugeeCampProject.services.RegistrationManagment.MemberManagmentService;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class MembershipDemandManagmentBean {
 	
 	
@@ -31,7 +36,7 @@ public class MembershipDemandManagmentBean {
 	private List<MembershipDemand> membershipDemands;
 	private List<MembershipDemand> membershipDemandsFiltred;
 	private String nameFilter;
-	private Part file;
+	private Part  file;
 	@EJB
 	MembershipDemandManagmentService mdms;
 	@EJB
@@ -50,11 +55,11 @@ public class MembershipDemandManagmentBean {
 		this.loginBean = loginBean;
 	}
 
-	public Part getFile() {
+	public Part  getFile() {
 		return file;
 	}
 
-	public void setFile(Part file) {
+	public void setFile(Part  file) {
 		this.file = file;
 	}
 
@@ -95,7 +100,7 @@ public class MembershipDemandManagmentBean {
 		return membershipDemands;
 	}
 	
-	//membership demands by mamber viewed by member
+	//membership demands by member viewed by member
 	public List<MembershipDemand> getMembershipDemandsByMemberId() {
 		
 		return mdms.getAllMembershipDemandsByMemberId(loginBean.getMember());
@@ -110,14 +115,66 @@ public class MembershipDemandManagmentBean {
 		membershipDemand.setRegistrationDate(new Date());
 		membershipDemand.setMember(loginBean.getMember());
 		mdms.addMembershipDemand(membershipDemand);
-		  try (InputStream input = file.getInputStream()) {
-		        Files.copy(input, new File("P:/Esprit 4BI/PI Sprint Two/RefugeeCampProject/RefugeeCampProject-web/src/main/webapp/profilepics",membershipDemand.getLogin()+ ".jpg").toPath());
-		    }
-		    catch (IOException e) {
-		        // Show faces message?
-		    } 
+		
+		//String destPath="P:/Esprit 4BI/PI Sprint Two/RefugeeCampProject/RefugeeCampProject-web/src/main/webapp/profilepics";
+		//String destPath="C:/wamp64/www/RefugeeCampProjectJEE/profilepics";
+		 
+		
+//		InputStream inputStr = null;
+//	    try {
+//	        inputStr = this.file.getInputstream();
+//	    } catch (IOException e) {
+//	        //log error
+//	    }
+	
+				
+//	    File destFile = new File(destPath);
+//
+//	    //use org.apache.commons.io.FileUtils to copy the File
+//	    try {                    
+//	        FileUtils.copyInputStreamToFile(inputStr, destFile);
+//	    } catch (IOException e) {
+//	        //log error
+//	    }
+				
+//				try (InputStream input = ((Part) file).getInputStream()) {
+//		        Files.copy(input,
+//		        		new File(destPath,membershipDemand.getLogin()+ ".jpg").toPath()
+//		        		,StandardCopyOption.REPLACE_EXISTING);
+//		    }
+//		    catch (IOException e) {
+//		        // Show faces message?
+//		    } 
 	return "listSendedMembershipDemands?faces-redirect = true";
 	}
+	
+	// listener ajax input file
+	public void save(){
+		String destPath="C:/wamp64/www/RefugeeCampProjectJEE/profilepics";
+//		try (InputStream input = ((Part) file).getInputStream()) {
+//	        Files.copy(input,
+//	        		new File(destPath,membershipDemand.getLogin()+ ".jpg").toPath()
+//	        		,StandardCopyOption.REPLACE_EXISTING);
+//	    }
+//	    catch (IOException e) {
+//	        // Show faces message?
+//	    } 
+		
+		
+		InputStream inputStr = null;
+	    File destFile = new File(destPath+"test.jpg");
+
+	    //use org.apache.commons.io.FileUtils to copy the File
+	    try {                    
+	        FileUtils.copyInputStreamToFile(inputStr, destFile);
+	    } catch (IOException e) {
+	        //log error
+	    }
+				
+			
+		
+	}
+	
 
 	//details membership demand viewed by manager only
 	public String detailsMembership(MembershipDemand demand){

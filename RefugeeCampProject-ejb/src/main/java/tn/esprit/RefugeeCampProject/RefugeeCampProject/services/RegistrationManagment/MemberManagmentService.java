@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import tn.esprit.RefugeeCampProject.Entities.RegistrationManagment.Member;
+import tn.esprit.RefugeeCampProject.Entities.RegistrationManagment.MembershipDemand;
 
 @Stateless
 @LocalBean
@@ -72,5 +73,33 @@ public  class MemberManagmentService implements RegistrationServiceRemote {
 		TypedQuery<Member> query = em.createQuery("Select m from Member m",Member.class);
 		return query.getResultList();
 	}
+	@Override
+	public boolean checkLogin(String login) {
+		
+			TypedQuery<MembershipDemand> queryMembershipDemand = em.createQuery("Select c from MembershipDemand c where c.login=:login",MembershipDemand.class)
+					.setParameter("login", login);
+			TypedQuery<Member> queryMember = em.createQuery("Select m from Member m where m.login=:login",Member.class)
+					.setParameter("login", login);
+			if( queryMembershipDemand.getResultList().isEmpty()&& 
+					queryMember.getResultList().isEmpty() )
+				return false;
+		
+		return true;
+		
+			
+	}
 
+	@Override
+	public boolean checkEmail(String email) {
+
+		TypedQuery<MembershipDemand> queryMembershipDemand = em.createQuery("Select c from MembershipDemand c where c.email=:email",MembershipDemand.class)
+				.setParameter("email", email);
+		TypedQuery<Member> queryMember = em.createQuery("Select m from Member m where m.email=:email",Member.class)
+				.setParameter("email", email);
+		if( queryMembershipDemand.getResultList().isEmpty()&& 
+				queryMember.getResultList().isEmpty() )
+			return false;
+	
+	return true;
+	}
 }

@@ -3,10 +3,18 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	template="/template/templateListMembership.xhtml">
+	template="/template/templateProfile.xhtml">
 
 
 <ui:define name="content" >
+<div class="container page_info">
+<!--the animated picture-->
+<div class="col_md_12">
+<img src="../profilepics/Houda.jpg" alt=""/>
+<h1>#{membershipDemandManagmentBean.membershipDemand.firstName} #{membershipDemandManagmentBean.membershipDemand.lastName}</h1>
+<span class="status">#{membershipDemandManagmentBean.membershipDemand.role}</span>
+</div>
+</div>
 
 <div class="place_li_cont">
 <div class="head_rev"><center><h2 style="color: red">Camps</h2></center> </div>

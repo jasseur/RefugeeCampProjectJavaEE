@@ -21,4 +21,6 @@ public interface MembershipDemandManagmentServiceRemote {
 	public List<MembershipDemand> getAllNotAcceptedMembershipDemands();
 	public List<MembershipDemand> getAllMembershipDemandsByMemberId(Member member);
 	public List<MembershipDemand> getAllMembershipDemandsByMembeNameLike(String name);
+	public boolean checkLogin(String login);
+	public boolean checkEmail(String email);
 }
