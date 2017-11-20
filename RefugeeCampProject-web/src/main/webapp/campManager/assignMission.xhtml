@@ -1,0 +1,161 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/template/templateProfile.xhtml">
+
+
+
+<ui:define name="content" >
+ 
+ <div class="container page_info">
+<!--the animated picture-->
+<div class="col_md_12">
+<img src="../ressources/images/login/logo login.PNG" alt=""/>
+<h1>#{campDetailsBean.selectedCamp.name}</h1>
+<span class="status">#{campDetailsBean.selectedCamp.capacity}</span>
+</div>
+</div>
+
+<div class="container contant">
+<div class="row cont">
+<div class="col-md-3 mobile_none sidebar">
+<div class="user_vis">
+<span><i class="fa fa-map-marker"></i>RefugeeCamp</span>
+<div></div>
+</div>
+<div class="user_friends">
+<div class="users_group">
+
+
+<h:commandLink action="#{membershipDemandManagmentBean.acceptDemand()}" value="" >
+<img src="../profilepics/Jawhar.jpg" alt="" style="width:50px;height:50px" />
+</h:commandLink>
+</div>
+</div></div>
+<!-- hetha to add some menus  !!!!!!!!!  --> 
+
+<div class="col-md-9 basic vp">
+<h1><center>Assign new mission</center></h1>
+<h:form>
+<br />
+
+<div class="form-group">
+<h:outputLabel  value="Type :"  styleClass="control-label col-md-4" />
+<div class="col-md-8">
+  <p:inputText  value="#{missionManagmentBean.newMission.type}"
+             required="true" />
+</div>
+</div>
+
+<div class="form-group">
+<h:outputLabel   value="Start date:"  styleClass="control-label col-md-4" />
+<div class="col-md-8">
+  <p:calendar  value="#{missionManagmentBean.newMission.startDate}"
+             required="true" pattern="yyyy-MM-dd"/>
+</div>
+</div>
+
+<div class="form-group">
+<h:outputLabel  value="Ends date:"  styleClass="control-label col-md-4" />
+<div class="col-md-8">
+  <p:calendar  value="#{missionManagmentBean.newMission.endDate}"
+             required="true" pattern="yyyy-MM-dd"/>
+</div>
+</div>
+
+<div class="form-group">
+<h:outputLabel  value="Description:"  styleClass="control-label col-md-2" />
+<div class="col-md-10">
+  <p:inputTextarea  value="#{missionManagmentBean.newMission.description}"
+             required="true"  style="width:300px;"/>
+</div>
+</div>
+
+
+<h3><center> Members </center></h3>
+
+
+<h:dataTable value="#{missionManagmentBean.availableMembers}" var="member" >
+<h:column>
+
+<div class="reviews">
+
+<!--review-->
+<div class="rev">
+<div class="user">
+
+<img src="http://localhost:8081/RefugeeCampProjectJEE/profilepics/#{member.login}.jpg" alt="" /></div>
+<div class="texts">
+<div class="head_rev"><a href="02.html">#{member.firstName} #{member.lastName}</a> <span>#{member.registrationDate.toString().substring(0,10)}</span></div>
+<div class="text_rev"> #{member.role} </div>
+</div>
+<br />
+ 	<p:commandButton action="#{missionManagmentBean.assignNewMission(member)}" value="Assign Mission" styleClass="btn btn-default" />
+        	 
+    <p:commandButton id="detailsMember"  value="Details" styleClass="btn btn-default" />
+
+    <p:overlayPanel id="detailsMemberPanel" for="detailsMember" hideEffect="fade" dynamic="true" style="width:400px">
+     		
+	<div class="form-group">
+	<h:outputLabel  value="FirstName:"  styleClass="control-label col-md-4" />
+	<div class="col-md-8">
+ 	<h:outputLabel  value="#{member.firstName}"  />
+	</div>
+	</div>
+	
+	<div class="form-group">
+	<h:outputLabel  value="Lastname:"  styleClass="control-label col-md-4" />
+	<div class="col-md-8">
+ 	<h:outputLabel  value="#{member.lastName}"   />
+	</div>
+	</div>
+	
+	<div class="form-group">
+	<h:outputLabel  value="Gender:"  styleClass="control-label col-md-4" />
+	<div class="col-md-8">
+ 	<h:outputLabel  value="#{member.gender}"  />
+	</div>
+	</div>
+
+	<div class="form-group">
+	<h:outputLabel  value="Birth date:"  styleClass="control-label col-md-4" />
+	<div class="col-md-8">
+ 	<h:outputLabel  value="#{member.birthDate.toString().substring(0,10)}"   />
+	</div>
+	</div>	
+
+	<div class="form-group">
+	<h:outputLabel  value="Role:"  styleClass="control-label col-md-4" />
+	<div class="col-md-8">
+ 	<h:outputLabel  value="#{member.role}"   />
+	</div>
+	</div>
+
+	<div class="form-group">
+	<h:outputLabel  value="Mission :"  styleClass="control-label col-md-4" />
+	<div class="col-md-8">
+ 	<h:outputLabel  value="#{member.missions.size()}"   />
+	</div>
+	</div>	
+     </p:overlayPanel>
+        	
+</div>
+<!--review end-->
+
+</div>
+</h:column>
+</h:dataTable>
+</h:form>
+
+</div>
+
+</div>
+</div>
+
+
+
+<div><p><center>Refugee Camp</center></p></div>
+</ui:define>
+</ui:composition>

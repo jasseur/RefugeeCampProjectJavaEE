@@ -1,4 +1,4 @@
-	package tn.esprit.RefugeeCampProject.RefugeeCampProject.presentation.mbeans;
+package tn.esprit.RefugeeCampProject.RefugeeCampProject.presentation.mbeans;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -24,16 +24,15 @@ import tn.esprit.RefugeeCampProject.Entities.CampManagment.Camp;
 import tn.esprit.RefugeeCampProject.RefugeeCampProject.services.CampManagment.CampManagmentService;
 import javax.faces.context.FacesContext;
 @ManagedBean
-@ViewScoped
-public class CampManagmentBean  implements Serializable{
+@SessionScoped
+public class CampDetailsBean  implements Serializable{
 	
 
 	private Camp camp = new Camp();
 	private Camp newCamp = new Camp();
 	private List<Camp> camps;
 	
-	// list camps map
-	private MapModel allcampsModel= new DefaultMapModel();
+
 	// details camp map
 	private MapModel detailsModel= new DefaultMapModel();
 
@@ -48,25 +47,9 @@ public class CampManagmentBean  implements Serializable{
 	@ManagedProperty(value="#{loginBean}")
 	LoginBean loginBean;
 	
-	@ManagedProperty(value="#{campDetailsBean}")
-	CampDetailsBean campDetailsBean;
-	
+	@ManagedProperty(value="#{missionManagmentBean}")
+	MissionManagmentBean missionManagmentBean;
 
- 
-	@PostConstruct
-	private void init(){
-		camps= cms.getAllCamps();
-		 String icon = "http://localhost:18080/RefugeeCampProject-web/ressources/images/login/logohome.png";
-        
-		for (Camp camp : camps) {
-			   LatLng coord1 = new LatLng(camp.getLatitude(), camp.getLongitude());
-			   Marker marker = new Marker(coord1, camp.getName(),camp,icon);
-			//   marker.setDraggable(true);
-		       allcampsModel.addOverlay(marker);
-		}
-		
-		//selectedCamp= new Camp();
-	}
 	
 	//getters and setters
 	public Camp getCamp() {
@@ -94,29 +77,6 @@ public class CampManagmentBean  implements Serializable{
 		this.loginBean = loginBean;
 	}
 	
-	
-	
-	// get all camps to map
-
-	public CampDetailsBean getCampDetailsBean() {
-		return campDetailsBean;
-	}
-
-	public void setCampDetailsBean(CampDetailsBean campDetailsBean) {
-		this.campDetailsBean = campDetailsBean;
-	}
-
-	public MapModel getAllcampsModel() {
-	
-
-		return allcampsModel;
-	}
-	
-	public void setAllcampsModel(MapModel allcampsModel) {
-		this.allcampsModel = allcampsModel;
-	}
-	
-	
 
 	public MapModel getDetailsModel() {
 		return detailsModel;
@@ -142,26 +102,52 @@ public class CampManagmentBean  implements Serializable{
 	public void setNewCamp(Camp newCamp) {
 		this.newCamp = newCamp;
 	}
-
-	//add marker and camp
-    public void addNewCamp() {
-    	
-        cms.addCamp(newCamp);  
-        String icon = "http://localhost:18080/RefugeeCampProject-web/ressources/images/login/logohome.png";
-        LatLng coord1 = new LatLng(newCamp.getLatitude(), newCamp.getLongitude());
-        allcampsModel.addOverlay(new Marker(coord1, newCamp.getName(),newCamp,icon));
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Camp "+ newCamp.getName() +" Added", "Lat:" + newCamp.getLatitude() + ", Lng:" + newCamp.getLongitude()));
-     newCamp = new Camp();
-    }
 	
-    // select info 
-    public void onMarkerSelect(OverlaySelectEvent event) {
-    	// i added camp to markers 
-    	campDetailsBean.setSelectedCamp(selectedCamp =(Camp)( (Marker) event.getOverlay()).getData());
+	
+
+    public MissionManagmentBean getMissionManagmentBean() {
+		return missionManagmentBean;
+	}
+
+	public void setMissionManagmentBean(MissionManagmentBean missionManagmentBean) {
+		this.missionManagmentBean = missionManagmentBean;
+	}
+
+	// details camp view
+    public String detailsCamp(){
+    	  this.camp = selectedCamp;
+    	  String icon = "http://localhost:18080/RefugeeCampProject-web/ressources/images/login/logohome.png";
+          LatLng coord1 = new LatLng(selectedCamp.getLatitude(), selectedCamp.getLongitude());
+		   Marker marker = new Marker(coord1, camp.getName(),camp,icon);
+		   marker.setDraggable(true);
+		   detailsModel= new DefaultMapModel();
+         detailsModel.addOverlay(marker);
+         return "detailsCamp?faces-redirect=true";
     }
-  
     
-
+    // darg to update
+    public void updateCampPosition(MarkerDragEvent event)
+    {
+    	
+    	Marker  marker = event.getMarker();
+    	selectedCamp.setLatitude(marker.getLatlng().getLat() );
+    	selectedCamp.setLongitude(marker.getLatlng().getLng());
+    	cms.updateCamp(selectedCamp);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Camp position updated", ""));
+        
+    }
     
-
+   public String updateCamp(){
+	   cms.updateCamp(selectedCamp);
+	   return "detailsCamp?faces-redirect=true";
+    }
+   public String updateCampView(){
+	   this.camp = selectedCamp;
+	   return "updateCamp";
+    }
+   
+   public String assignMissionRedirect(){
+   	missionManagmentBean.setSelectedCamp(selectedCamp);
+   	return "assignMission";
+   }
 }

@@ -30,7 +30,9 @@
 <div class="user_friends">
 <div class="users_group">
 
-
+<div class="user_go">
+<i class="fa fa-link"></i>
+</div>
 <h:commandLink action="#{membershipDemandManagmentBean.acceptDemand()}" value="" >
 <img src="../profilepics/Jawhar.jpg" alt="" style="width:50px;height:50px" />
 </h:commandLink>
@@ -42,43 +44,71 @@
 <p:growl id="messages" showDetail="true" />
 <h:form>
 
-       
+              
 <p:gmap id="gmap" center="#{campDetailsBean.selectedCamp.latitude}, #{campDetailsBean.selectedCamp.longitude}" zoom="4" type="HYBRID" style="width:100%;height:400px"
     model="#{campDetailsBean.detailsModel}"  >
     
   <p:ajax event="markerDrag" listener="#{campDetailsBean.updateCampPosition}" update="messages" />
  </p:gmap>
 
-        <div class="form-group">
+  <br />
+
+       <div class="form-group">
+<h:outputLabel for="name" value="Name:"  styleClass="control-label col-md-4" />
+<div class="col-md-8">
+  <p:inputText id="name" value="#{campDetailsBean.selectedCamp.name}"
+             required="true" />
+</div>
+
+</div>
+            
+        
+     	<div class="form-group">
+	<h:outputLabel for="capacity" value="Capacity:"  styleClass="control-label col-md-4" />
+	<div class="col-md-8">
+	<p:inputText id="capacity" value="#{campDetailsBean.selectedCamp.capacity}" />
+	</div>
+
+	</div>   
+            
+            
+            <br />
+             <div class="form-group">
            <div class="col-md-8">
-             <p:commandButton action="updateCamp?faces-redirect=true" value="Update" styleClass="btn btn-default" />
-        	 <p:commandButton action="#{campDetailsBean.assignMissionRedirect()}" value="Add mission" styleClass="btn btn-default" />
+             <p:commandButton action="#{campDetailsBean.updateCamp()}" value="Update" styleClass="btn btn-primary " />
         	
         	</div>
-        	</div> 
+        	</div>
+      
+   
+
+
+
            
 
 </h:form>
 	<div class="reviews">
-<h:dataTable value="#{missionManagmentBean.missions}" var="mission" >
-<h:column>
+
 <!--review-->
 <div class="rev">
-<div class="user">
 
-<img src="http://localhost:8081/RefugeeCampProjectJEE/profilepics/#{mission.member.login}.jpg" alt="" /></div>
+<div class="user"><a href="02.html" class="user_avatars"/>
+
+</div>
+
+
+
 <div class="texts">
-<div class="head_rev"><a href="02.html">#{mission.member.login} #{mission.type}</a> <span>Begin: #{mission.startDate.toString().substring(0,10)}  Ends: #{mission.endDate.toString().substring(0,10)}</span></div>
-<div class="text_rev"> #{mission.member.firstName} #{mission.member.lastName}
-<br />
-#{mission.description}
- </div>
+
+<div class="text_rev">
+
+</div>
 </div>
 </div>
 <!--review end-->
-</h:column>
-</h:dataTable>
 
+
+<!--review end-->
 </div>
 
 </div>

@@ -10,19 +10,21 @@
 
 <p:growl id="messages" showDetail="true" />
 <h:form>
-<p:gmap id="gmap" center="36.827836581647489,10.097293853759766" zoom="10" type="HYBRID" style="width:100%;height:700px"
+
+<p:gmap id="gmap" center="36.827836581647489,10.097293853759766" zoom="4" type="HYBRID" style="width:100%;height:700px"
  model="#{campManagmentBean.allcampsModel}" 
  onPointClick="handlePointClick(event);" widgetVar="map"
  >
  
     <p:ajax event="overlaySelect" listener="#{campManagmentBean.onMarkerSelect}" />
+   
  
         <p:gmapInfoWindow id="infoWindow">
             <p:outputPanel style="text-align: center; display: block; margin: auto">
                     <h3> Name : #{campManagmentBean.selectedCamp.name} </h3>                   
                     <h3> Capacity : #{campManagmentBean.selectedCamp.capacity} </h3>                  
-                    <p:commandButton action="#{campManagmentBean.detailsCamp}" value="Details" styleClass="btn btn-primary mb1 bg-blue"/>
-                    <p:commandButton action="#{campManagmentBean.addNewCamp}" value="Update" styleClass="btn btn-primary "/>
+                    <p:commandButton action="#{campDetailsBean.detailsCamp()}" value="Details" styleClass="btn btn-primary mb1 bg-blue" />
+<!--                     <p:commandButton action="updateCamp" value="#{campDetailsBean.updateCampView()}" styleClass="btn btn-primary " /> -->
                     
              </p:outputPanel>
         </p:gmapInfoWindow> 

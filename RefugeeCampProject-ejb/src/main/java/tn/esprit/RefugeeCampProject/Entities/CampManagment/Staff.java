@@ -16,6 +16,7 @@ public class Staff {
             private String email ;
             private String login ;
             private String password ;
+            private int idCamp ;
             
 			public int getId() {
 				return id;
@@ -76,6 +77,12 @@ public class Staff {
 			}
 			public void setPassword(String password) {
 				this.password = password;
+			}
+			public int getIdCamp() {
+				return idCamp;
+			}
+			public void setIdCamp(int idCamp) {
+				this.idCamp = idCamp;
 			}
             
             

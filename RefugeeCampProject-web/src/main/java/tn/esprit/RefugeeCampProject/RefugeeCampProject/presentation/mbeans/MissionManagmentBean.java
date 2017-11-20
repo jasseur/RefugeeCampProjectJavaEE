@@ -40,6 +40,7 @@ public class MissionManagmentBean  implements Serializable{
 	private Mission mission;
 	private Mission newMission;
 	private List<Mission> missions;
+	private Camp selectedCamp;
 	
 	private String login;
 
@@ -50,8 +51,6 @@ public class MissionManagmentBean  implements Serializable{
 	@EJB
 	MissionManagmentService mms;
 
-	
-	
 	//getters and setters
 	public Mission getMission() {
 		return mission;
@@ -70,6 +69,7 @@ public class MissionManagmentBean  implements Serializable{
 	}
 
 	public List<Mission> getMissions() {
+		this.missions=mms.getAllMissions(selectedCamp);
 		return missions;
 	}
 
@@ -84,7 +84,7 @@ public class MissionManagmentBean  implements Serializable{
 	public void setStaffHasAccount(boolean staffHasAccount) {
 		this.staffHasAccount = staffHasAccount;
 	}
-	
+		
 	public String getLogin() {
 		return login;
 	}
@@ -101,7 +101,16 @@ public class MissionManagmentBean  implements Serializable{
 		this.staffHasAccountString = staffHasAccountString;
 	}
 
+	public Camp getSelectedCamp() {
+		return selectedCamp;
+	}
+
+	public void setSelectedCamp(Camp selectedCamp) {
+		this.selectedCamp = selectedCamp;
+	}
+	
 	//end getters and setters
+	
 	@PostConstruct
 	private void init(){
 		  mission = new Mission();
@@ -113,6 +122,15 @@ public class MissionManagmentBean  implements Serializable{
 		  mission.setCamp(new Camp());
 		  mission.setMember(new Member());
 	}
+	
+	
+	// assign Mission View members List
+	public List<Member> getAvailableMembers()
+	{	
+		return mms.getAvailableMembers(newMission.getStartDate(), newMission.getEndDate(),newMission.getType());
+	}
+	
+	
 	// web REST check if Satff exist GET method  http://localhost:62754/api/Staffs/{login}
 	public void checkStaff() throws Exception
 	{
@@ -120,19 +138,24 @@ public class MissionManagmentBean  implements Serializable{
 		this.staffHasAccountString=mms.checkStaffAccountStringReturn(this.login);
 	}
 	
-	
+	// method POST to add a Staff t .NET project
 	public void addSatff(){
-		Member member = new Member();
-		member.setFirstName("jassertest");
-		member.setLastName("jassertest");
-		member.setBirthDate(new Date());
-		member.setGender(Gender.male);
-		member.setEmail("jassertest");
-		member.setRole(Role.CampManager);
-		member.setLogin("jassertest");
-		member.setPassword("jassertest");
-		mission.setMember(member);
-	this.staffHasAccountString=	mms.addNewStaff(mission);
+
+	this.staffHasAccountString=	mms.addNewStaff(newMission);
 		
 	}
+	
+
+	public String assignNewMission(Member member){
+		newMission.setMember(member);
+		newMission.setCamp(selectedCamp);
+		mms.addMission(newMission);
+		addSatff();
+		 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,member.getLogin() +
+				 " assigned to " + selectedCamp.getName(), "")); 
+		return "detailsCamp";
+	}
+	
+	
+	
 }

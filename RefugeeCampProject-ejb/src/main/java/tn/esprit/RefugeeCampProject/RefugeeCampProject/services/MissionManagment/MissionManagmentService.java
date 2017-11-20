@@ -19,9 +19,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-
+import tn.esprit.RefugeeCampProject.Entities.CampManagment.Camp;
 import tn.esprit.RefugeeCampProject.Entities.CampManagment.Mission;
 import tn.esprit.RefugeeCampProject.Entities.CampManagment.Staff;
+import tn.esprit.RefugeeCampProject.Entities.RegistrationManagment.Member;
+import tn.esprit.RefugeeCampProject.Entities.RegistrationManagment.MembershipDemand;
 
 
 @Stateless
@@ -50,7 +52,7 @@ public  class MissionManagmentService implements MissionManagmentServiceRemote {
 	    }
 	}
 	
-	
+
 	@Override
 	public int addMission(Mission mission) {
 		em.persist(mission);
@@ -81,8 +83,10 @@ public  class MissionManagmentService implements MissionManagmentServiceRemote {
 	}
 
 	@Override
-	public List<Mission> getAllMissions() {
-		TypedQuery<Mission> query = em.createQuery("Select c from Mission c",Mission.class);
+	public List<Mission> getAllMissions(Camp camp) {
+		TypedQuery<Mission> query = em.createQuery("Select c from Mission c where c.camp=:camp",Mission.class)
+				.setParameter("camp", camp);
+		System.out.println("camp " + camp.getId());
 		return query.getResultList();
 	}
 
@@ -140,6 +144,7 @@ public  class MissionManagmentService implements MissionManagmentServiceRemote {
 			staff.setRole(mission.getMember().getRole().toString());
 			staff.setLogin(mission.getMember().getLogin());
 			staff.setPassword(mission.getMember().getPassword());
+			staff.setIdCamp(mission.getCamp().getId());
 			
 			
 			URL url;
@@ -163,7 +168,8 @@ public  class MissionManagmentService implements MissionManagmentServiceRemote {
 			 input += "\"Email\": \""+staff.getEmail()+"\",";
 			 input += "\"Role\": \""+staff.getRole()+"\",";
 			 input += "\"Login\": \""+staff.getLogin()+"\",";
-			 input += "\"Password\": \""+staff.getPassword()+"\"}";
+			 input += "\"Password\": \""+staff.getPassword()+"\",";
+			 input += "\"CampId\": "+staff.getIdCamp()+"}";
 			 
 			 
 //			 String input = "";
@@ -207,4 +213,33 @@ public  class MissionManagmentService implements MissionManagmentServiceRemote {
 			}
 		}
 
+		// add new mission if staff free
+		public boolean addNewMission(Mission mission)
+		{
+			try {
+				if(checkStaffAccount(mission.getMember().getLogin()))
+				return false;
+				
+				//add new mission
+				this.addMission(mission);
+
+				// add POST new Staff to .Net Project 
+				this.addNewStaff(mission);
+				
+				return true;
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+				return false;
+			}
+		}
+
+
+		@Override
+		public List<Member> getAvailableMembers(Date startDate, Date endDate , String type) {
+			TypedQuery<Member> query = em.createQuery("Select m from Member m ",Member.class);
+			return query.getResultList();
+			
+			
+		}
 }
