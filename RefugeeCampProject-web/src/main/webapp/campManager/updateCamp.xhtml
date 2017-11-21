@@ -75,7 +75,8 @@
             <br />
              <div class="form-group">
            <div class="col-md-8">
-             <p:commandButton action="#{campDetailsBean.updateCamp()}" value="Update" styleClass="btn btn-primary " />
+             <p:commandButton action="#{campDetailsBean.updateCamp()}" value="Update" styleClass="btn btn-primary " update="@form" />
+             <p:commandButton action="detailsCamp?faces-redirect=true" value="Go back" styleClass="btn btn-primary " />
         	
         	</div>
         	</div>

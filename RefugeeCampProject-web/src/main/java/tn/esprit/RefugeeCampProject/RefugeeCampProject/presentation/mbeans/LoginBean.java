@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 
 import tn.esprit.RefugeeCampProject.Entities.RegistrationManagment.Member;
 import tn.esprit.RefugeeCampProject.RefugeeCampProject.services.RegistrationManagment.MemberManagmentService;
+import tn.esprit.RefugeeCampProject.Types.Role;
 
 @ManagedBean
 @SessionScoped
@@ -57,16 +58,23 @@ public class LoginBean {
 	
 	
 	public String  doLogin(){
-		String 	nvigateTo ="null";
+		String 	nvigateTo ="/login?faces-redirect=true";
 		member = mms.getMemberByLoginAndPasswod(login, password);
+		if(member != null  && member.getRole() == Role.CampSettingUpManager ){
+			nvigateTo = "/campManager/listCamps";
+			loggedIn = true;
+	}
 		
-		if(member != null ){
-				nvigateTo = "home";
+		else if( member != null && member.getRole() == Role.MembershipManager){
+				nvigateTo = "/membershipManager/listMembershipDemands";
 				loggedIn = true;
-		}
+		}else if( member != null && member.getRole() == Role.Member){
+			nvigateTo = "/member/myProfile";
+			loggedIn = true;
+	}
 		else{
-			FacesContext.getCurrentInstance().addMessage("form:btn", new  FacesMessage("bad credentials!!"));
-			this.message="check Login and password!!";
+			   FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "check Login and password!!",""));
+			    this.message="Check Login and password!!";
 		}
 	return nvigateTo;
 		

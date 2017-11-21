@@ -124,21 +124,7 @@ requiredMessage="*The login field is required"
 
 
 
-<div class="form-group">
-<h:outputText value="Role" styleClass="control-label col-md-4" />
- <div class="col-md-8">
-<h:selectOneMenu value="#{memberManagmentBean.member.role}"  styleClass="form-control"
-   id="role" 
-required="true"
-requiredMessage="*The role field is required"
-style="width:200px"
->
-<f:selectItem itemLabel="Select a role" itemValue=""/>
-<f:selectItems value="#{myData.selectListRoles}"/>
-</h:selectOneMenu>
-   <p:message for="role" style="color: red"/>
-</div>
-</div>
+
 
 
 
@@ -149,8 +135,7 @@ style="width:200px"
  <div class="col-md-2">
    <h:inputFile value="#{memberManagmentBean.file}"
    id="photo" 
-required="true"
-requiredMessage="*The photo field is required">
+>
         <f:ajax listener="#{memberManagmentBean.save()}" />
     </h:inputFile>
     <h:message for="photo" style="color: red"/>
@@ -163,10 +148,12 @@ requiredMessage="*The photo field is required">
 </div>
 
 <div class="form-group">
- <div class="col-md-4">
+ <div class="col-md-2">
+ <h:commandButton action="myProfile" value="Go back" styleClass="btn btn-primary"  />
+ 
  </div>
- <div class="col-md-4">
-<h:commandButton action="#{memberManagmentBean.addNewVisitor()}" value="Update" styleClass="btn btn-default"  />
+ <div class="col-md-8">
+<h:commandButton action="#{memberManagmentBean.updateMember()}" value="Update" styleClass="btn btn-primary"  />
 </div>
 </div>
 

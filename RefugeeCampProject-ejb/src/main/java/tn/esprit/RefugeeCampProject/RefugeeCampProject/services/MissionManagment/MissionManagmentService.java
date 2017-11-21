@@ -8,6 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.LocalBean;
@@ -24,6 +25,7 @@ import tn.esprit.RefugeeCampProject.Entities.CampManagment.Mission;
 import tn.esprit.RefugeeCampProject.Entities.CampManagment.Staff;
 import tn.esprit.RefugeeCampProject.Entities.RegistrationManagment.Member;
 import tn.esprit.RefugeeCampProject.Entities.RegistrationManagment.MembershipDemand;
+import tn.esprit.RefugeeCampProject.Types.Role;
 
 
 @Stateless
@@ -67,7 +69,7 @@ public  class MissionManagmentService implements MissionManagmentServiceRemote {
 
 	@Override
 	public void deleteMission(Mission mission) {
-		em.merge(mission);
+		mission=em.merge(mission);
 		em.remove(mission);
 	}
 
@@ -89,6 +91,15 @@ public  class MissionManagmentService implements MissionManagmentServiceRemote {
 		System.out.println("camp " + camp.getId());
 		return query.getResultList();
 	}
+	
+	@Override
+	public List<Mission> getAllMissions(Member member) {
+		TypedQuery<Mission> query = em.createQuery("Select c from Mission c where c.member=:member",Mission.class)
+				.setParameter("member", member);
+
+		return query.getResultList();
+	}
+
 
 
 	@Override
@@ -136,12 +147,12 @@ public  class MissionManagmentService implements MissionManagmentServiceRemote {
 			// create new Staff entity
 			Staff staff = new Staff();
 			staff.setFirstName(mission.getMember().getFirstName());
-			staff.setFirstName(mission.getMember().getLastName());
+			staff.setLastName(mission.getMember().getLastName());
 			staff.setBirthDate(mission.getMember().getBirthDate());
 			staff.setHireDate(new Date());
 			staff.setGender(mission.getMember().getGender().toString());
 			staff.setEmail(mission.getMember().getEmail());
-			staff.setRole(mission.getMember().getRole().toString());
+			staff.setRole(mission.getType());
 			staff.setLogin(mission.getMember().getLogin());
 			staff.setPassword(mission.getMember().getPassword());
 			staff.setIdCamp(mission.getCamp().getId());
@@ -237,9 +248,68 @@ public  class MissionManagmentService implements MissionManagmentServiceRemote {
 
 		@Override
 		public List<Member> getAvailableMembers(Date startDate, Date endDate , String type) {
-			TypedQuery<Member> query = em.createQuery("Select m from Member m ",Member.class);
-			return query.getResultList();
+			TypedQuery<Member> query = em.createQuery("Select m from Member m where m.role=:role",Member.class)
+					.setParameter("role", Role.Member);
 			
+			List<Member> members = query.getResultList();
+			List<Member> membersResult = new ArrayList<Member>();
+			for (Member member : members) {
+			boolean notAvailable=false;
+				for(Mission mission : member.getMissions()){
+					if(mission.getEndDate().after(startDate) && mission.getEndDate().before(endDate)||
+							mission.getStartDate().after(startDate) && mission.getStartDate().before(endDate)
+							){
+						notAvailable= true;
+						
+					}
+				}
+				if(!notAvailable) membersResult.add(member);
+			}
+			return membersResult;
+
+		}
+		
+		@Override
+		public List<Member> getAvailableDoctors(Date startDate, Date endDate , String type) {
+			TypedQuery<Member> query = em.createQuery("Select m from Member m where m.role=:role",Member.class)
+					.setParameter("role", Role.Doctor);
+			List<Member> members = query.getResultList();
+			List<Member> membersResult = new ArrayList<Member>();
+			for (Member member : members) {
+			boolean notAvailable=false;
+				for(Mission mission : member.getMissions()){
+					if(mission.getEndDate().after(startDate) && mission.getEndDate().before(endDate)||
+							mission.getStartDate().after(startDate) && mission.getStartDate().before(endDate)
+							){
+						notAvailable= true;
+						
+					}
+				}
+				if(!notAvailable) membersResult.add(member);
+			}
+			return membersResult;
 			
+		}
+		
+		@Override
+		public List<Member> getAvailableTeachers(Date startDate, Date endDate , String type) {
+			TypedQuery<Member> query = em.createQuery("Select m from Member m where m.role=:role",Member.class)
+					.setParameter("role", Role.Teacher);
+			List<Member> members = query.getResultList();
+			List<Member> membersResult = new ArrayList<Member>();
+			for (Member member : members) {
+			boolean notAvailable=false;
+				for(Mission mission : member.getMissions()){
+					if(mission.getEndDate().after(startDate) && mission.getEndDate().before(endDate)||
+							mission.getStartDate().after(startDate) && mission.getStartDate().before(endDate)
+							){
+						notAvailable= true;
+						
+					}
+				}
+				if(!notAvailable) membersResult.add(member);
+			}
+			return membersResult;
+
 		}
 }

@@ -25,5 +25,8 @@ public interface MissionManagmentServiceRemote {
 	public boolean checkStaffAccount(String staffLogin) throws Exception;
 	public String checkStaffAccountStringReturn(String staffLogin) throws Exception;
 	public String addNewStaff(Mission mission);
+	public List<Mission> getAllMissions(Member member);
 	public List<Member> getAvailableMembers(Date startDate,Date endDate , String type);
+	public List<Member> getAvailableDoctors(Date startDate, Date endDate , String type);
+	public List<Member> getAvailableTeachers(Date startDate, Date endDate , String type);
 }

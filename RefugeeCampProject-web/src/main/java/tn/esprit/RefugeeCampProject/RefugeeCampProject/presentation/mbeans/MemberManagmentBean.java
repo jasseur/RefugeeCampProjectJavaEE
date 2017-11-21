@@ -111,8 +111,8 @@ public class MemberManagmentBean {
 	{
 		member.setRole(Role.Visitor);
 		mms.addMember(member);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome "+member.getLogin() +" To", "ICIR Family"));
-
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome "+member.getLogin() +" To ICIR Family", "ICIR Family"));
+		member = new Member();
 		return "login?faces-redirect=true";
 	}
 	
@@ -131,7 +131,7 @@ public class MemberManagmentBean {
 	}
 	
 	
-	public void save()
+	public String save()
 	{
 		String destPath="C:/wamp64/www/RefugeeCampProjectJEE/profilepics";
 		 try (InputStream input = file.getInputStream()) {
@@ -141,7 +141,9 @@ public class MemberManagmentBean {
 		    catch (IOException e) {
 		        // Show faces message?
 		    } 
+		 return "register";
 	}
 	
+
 	
 }

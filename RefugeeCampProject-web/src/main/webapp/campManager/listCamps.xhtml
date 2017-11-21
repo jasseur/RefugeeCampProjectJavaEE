@@ -5,48 +5,63 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/template/templateProfile.xhtml">
 
-
 <ui:define name="content" >
-<div class="container page_info">
-<!--the animated picture-->
-<div class="col_md_12">
-<img src="../profilepics/Houda.jpg" alt=""/>
-<h1>#{membershipDemandManagmentBean.membershipDemand.firstName} #{membershipDemandManagmentBean.membershipDemand.lastName}</h1>
-<span class="status">#{membershipDemandManagmentBean.membershipDemand.role}</span>
-</div>
-</div>
 
-<div class="place_li_cont">
-<div class="head_rev"><center><h2 style="color: red">Camps</h2></center> </div>
+
+<p:growl id="messages" showDetail="true" />
 <h:form>
-<a href="addCamp.xhtml" class="btn" >Add</a>
-<h:dataTable value="#{campManagmentBean.camps}" var="camp" >
-<h:column>
 
-<!--place style list-->
-<div class="pg style_list">
-
-<div class="con" >
-<img src="../ressources/img/camp.jpg" alt="" />
-<div class="content_li">
-<h2><a> Name : #{camp.name}</a><span></span></h2>
-<span>
-Capacity : #{camp.capacity}
-</span>
-
-
-</div>
-<div class="content_li">
-
-</div>
-</div>
-
-</div>
-
-</h:column>
-</h:dataTable>
-
+<p:gmap id="gmap" center="36.827836581647489,10.097293853759766" zoom="4" type="HYBRID" style="width:100%;height:700px"
+ model="#{campManagmentBean.allcampsModel}" 
+ onPointClick="handlePointClick(event);" widgetVar="map"
+ >
+ 
+    <p:ajax event="overlaySelect" listener="#{campManagmentBean.onMarkerSelect}" />
+   
+ 
+        <p:gmapInfoWindow id="infoWindow">
+            <p:outputPanel style="text-align: center; display: block; margin: auto">
+                    <h3> Name : #{campManagmentBean.selectedCamp.name} </h3>                   
+                    <h3> Capacity : #{campManagmentBean.selectedCamp.capacity} </h3>                  
+                    <p:commandButton action="#{campDetailsBean.detailsCamp()}" value="Details" styleClass="btn btn-primary mb1 bg-blue" />
+<!--                     <p:commandButton action="updateCamp" value="#{campDetailsBean.updateCampView()}" styleClass="btn btn-primary " /> -->
+                    
+             </p:outputPanel>
+        </p:gmapInfoWindow> 
+        
+        
+ </p:gmap>
 </h:form>
-</div>
+
+<p:dialog widgetVar="dlg" showEffect="fade">
+    <h:form prependId="false">
+        <h:panelGrid columns="2">
+            <h:outputLabel for="name" value="Name:" />
+            <p:inputText id="name" value="#{campManagmentBean.newCamp.name}"
+             required="true" />
+            <h:outputLabel for="capacity" value="Capacity:" />
+            <p:inputText id="capacity" value="#{campManagmentBean.newCamp.capacity}"
+            
+           />
+ 
+            <f:facet name="footer">
+            <a href="listCamps.xhtml">
+                <p:commandButton  value="Add Camp" actionListener="#{campManagmentBean.addNewCamp}" update=":messages" oncomplete="markerAddComplete()" ajax="false"/>
+               </a>
+                <p:commandButton value="Cancel" onclick="return cancel()" />
+            </f:facet>
+        </h:panelGrid>
+ 
+        <h:inputHidden id="lat" value="#{campManagmentBean.newCamp.latitude}" />
+        <h:inputHidden id="lng" value="#{campManagmentBean.newCamp.longitude}" />
+    </h:form>
+</p:dialog>
+ <!-- camp info popup -->
+
+   
+
+
+
+
 </ui:define>
 </ui:composition>

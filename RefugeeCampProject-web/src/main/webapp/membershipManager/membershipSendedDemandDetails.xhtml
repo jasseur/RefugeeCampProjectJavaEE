@@ -33,11 +33,7 @@
 <div class="user"><a href="02.html" class="user_avatars"/>
 
 </div>
-<h:form>
-<h:commandButton action="#{membershipDemandManagmentBean.acceptDemand()}" value="Accept" styleClass="btn btn-primary" onclick=" confirm('Are you sure?')"/>
-<h:commandButton action="#{membershipDemandManagmentBean.denyDemand()}" value="Deny" styleClass="btn btn-default" onclick=" confirm('Are you sure?')"/>
-<h:commandButton action="listMembershipDemands" value="Go back" styleClass="btn btn-primary" />
-</h:form>
+#{membershipDemandManagmentBean.membershipDemand.accepted ==true ?"Accepted": "Not Accepted"}
 <div class="texts">
 <div class="head_rev"><h2 style="color: red">Personal Information :</h2> </div>
 
@@ -67,21 +63,7 @@
 <h3>
 #{membershipDemandManagmentBean.membershipDemand.description}</h3>
 
-<div class="head_rev"><h2 style="color: red">Proposer :</h2> </div>
-<img src="http://localhost:8081/RefugeeCampProjectJEE/profilepics/#{membershipDemandManagmentBean.membershipDemand.member.login}.jpg" width="100px" height="100px" />
 
-<h3>Firstname : 
-#{membershipDemandManagmentBean.membershipDemand.member.firstName}</h3>
-<h3>Lastname : 
-#{membershipDemandManagmentBean.membershipDemand.member.lastName}</h3>
-<h3>Birth date : 
-#{membershipDemandManagmentBean.membershipDemand.member.birthDate.toLocaleString().substring(0,12)}</h3>
-
-<h3>Email address : 
-#{membershipDemandManagmentBean.membershipDemand.member.email}</h3>
-
-<h3>Login : 
-#{membershipDemandManagmentBean.membershipDemand.member.login}</h3>
 <div class="text_rev">
 
 </div>

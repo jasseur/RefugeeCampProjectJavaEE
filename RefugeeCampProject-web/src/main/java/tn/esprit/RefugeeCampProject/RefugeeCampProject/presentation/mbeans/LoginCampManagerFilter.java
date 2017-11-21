@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import tn.esprit.RefugeeCampProject.Types.Role;
 
-@WebFilter("/campManager/*")
-public class LoginFilter implements Filter {
+@WebFilter("/member/*")
+public class LoginCampManagerFilter implements Filter {
 
 	@Override
 	public void destroy() {
@@ -31,7 +31,8 @@ public class LoginFilter implements Filter {
 		
 		LoginBean loginBean=(LoginBean) servletRequest.getSession().getAttribute("loginBean");
 		if(loginBean !=null && 
-				(
+				(loginBean.getMember().getRole()==Role.Member ||
+				loginBean.getMember().getRole()==Role.MembershipManager ||
 				loginBean.getMember().getRole()==Role.CampSettingUpManager 
 				)&& loginBean.isLoggedIn()|| 
 		servletRequest.getRequestURI().toString().contains("login.jsf")){

@@ -2,36 +2,68 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	template="/template/template.xhtml">
+	xmlns:p="http://primefaces.org/ui"
+	template="/template/templateListMembership.xhtml">
 
 
 <ui:define name="content" >
 
 <div class="place_li_cont">
+<div class="head_rev"><center><h2 style="color: red">Membership demands</h2></center> </div>
 <h:form>
 
+<br />
+<p:dataTable value="#{membershipDemandManagmentBean.membershipDemands}" var="membershipDemand" 
+widgetVar="demandes"
+emptyMessage="No demands found with given criteria"
+filteredValue="#{membershipDemandManagmentBean.allMembershipDemandsFiltred}"
 
-
-<h:dataTable value="#{membershipDemandManagmentBean.membershipDemands}" var="membershipDemand" >
-<h:column>
+>
+ 
+     <f:facet name="header" >
+            <p:outputPanel >
+                <h:outputText value="Search :" />
+                <p:inputText id="globalFilter" value="#{membershipDemandManagmentBean.nameFilter}" onkeyup="PF('demandes').filter()" style="width:150px;" placeholder="Enter keyword"/>
+            </p:outputPanel>
+      
+        </f:facet>
+<p:column>
 
 <!--place style list-->
 <div class="pg style_list">
+
 <div class="con" >
-<img src="../profilepics/#{membershipDemand.login}.jpg" alt="" />
+<img src="http://localhost:8081/RefugeeCampProjectJEE/profilepics/#{membershipDemand.login}.jpg" alt="" />
 <div class="content_li">
 <h2><a >#{membershipDemand.firstName} #{membershipDemand.lastName}</a><span></span></h2>
-<a>#{membershipDemand.registrationDate} </a>
+<a> #{membershipDemand.role} </a>
 <span>
+
 #{membershipDemand.description} 
 </span>
-<a href="/RefugeeCampProject-web/MembershipManagment/membershipDemandDetails.xhtml" class="comm">#{membershipDemand.role} </a> 
-<h:commandButton action="#{membershipDemandManagmentBean.detailsMembership(membershipDemand)}" value="Details" />
+<span>
+Proposer :
+#{membershipDemand.member.firstName}  #{membershipDemand.member.lastName} 
+</span>
+<a  class="comm"> #{membershipDemand.registrationDate.toString().substring(0,16)}</a> 
+
+</div>
+
+<div class="content_li">
+
+<h:commandButton action="#{membershipDemandManagmentBean.detailsMembership(membershipDemand)}" value="Details"  class="btn btn-default"/>
+
+<!-- <h:commandButton action="#{membershipDemandManagmentBean.detailsSendedMembership(membershipDemand)}" value="Details" styleClass="btn btn-info" /> -->
+<!-- <h:commandButton action="#{membershipDemandManagmentBean.detailsSendedMembership(membershipDemand)}" value="Delete" styleClass="btn btn-default" onclick="return confirm('You want to delete?');"/> -->
+
 </div>
 </div>
+<br />
+
 </div>
-</h:column>
-</h:dataTable>
+
+</p:column>
+</p:dataTable>
 
 </h:form>
 </div>

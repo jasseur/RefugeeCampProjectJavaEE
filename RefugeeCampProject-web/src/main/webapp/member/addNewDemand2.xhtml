@@ -4,40 +4,39 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	template="/template/templateRegister.xhtml">
+	template="/template/template.xhtml">
 
 
 
 <ui:define name="content" >
 <div>
 
-<h1> <center>Register as a Visitor</center> </h1>
+<h1> <center>Add new membership demand</center> </h1>
 </div>
 <div class="col-sm-2"></div>
 <div >
 <h:form enctype="multipart/form-data">
  <p:messages id="msgs" />
-  <h:outputText id="outLogin" value="#{memberManagmentBean.loginCheckMessage}" style="color:red" />
-  <h:outputText id="outEmail" value="#{memberManagmentBean.emailCheckMessage}" style="color:red" />
+  <h:outputText id="outLogin" value="#{membershipDemandManagmentBean.loginCheckMessage}" style="color:red" />
+  <br />
+  <h:outputText id="outEmail" value="#{membershipDemandManagmentBean.emailCheckMessage}" style="color:red" />
  
 <div class="form-group">
 
 <h:outputText value="Login" styleClass="control-label col-md-4"/>
  <div class="col-md-8">
 
-<p:inputText value="#{memberManagmentBean.member.login}" 
+<p:inputText value="#{membershipDemandManagmentBean.membershipDemand.login}" 
 id="login" 
 required="true"
 requiredMessage="*The login field is required"
 >
 
-<p:ajax event="keyup" update="outLogin" listener="#{memberManagmentBean.checkLogin(memberManagmentBean.member.login)}" />
+<p:ajax event="keyup" update="outLogin" listener="#{membershipDemandManagmentBean.checkLogin(membershipDemandManagmentBean.membershipDemand.login)}" />
 </p:inputText>
 
-
 </div>
 </div>
-
 
 
 
@@ -45,17 +44,17 @@ requiredMessage="*The login field is required"
 <h:outputText value="Photo"  styleClass="control-label col-md-2"/>
  <div class="col-md-2">
  
-   <h:inputFile value="#{memberManagmentBean.file}"
+   <h:inputFile value="#{membershipDemandManagmentBean.file}"
    id="photo" 
 >
-        <f:ajax listener="#{memberManagmentBean.save()}"  />
+        <f:ajax listener="#{membershipDemandManagmentBean.save()}"  />
     </h:inputFile>
    
    
 </div>
  <div class="col-md-8">
  <div class="con">
- <img id="mypic"  src="http://localhost:8081/RefugeeCampProjectJEE/profilepics/#{memberManagmentBean.member.login}" style="width:200px;hight:200px"/>
+ <img id="mypic"  src="http://localhost:8081/RefugeeCampProjectJEE/profilepics/#{membershipDemandManagmentBean.membershipDemand.login}" style="width:200px;hight:200px"/>
  </div>
  </div>
 </div>
@@ -64,13 +63,13 @@ requiredMessage="*The login field is required"
 <h:outputText   value="Email" styleClass="control-label col-md-4"/>
  <div class="col-md-8">
 
-<p:inputText id="email" value="#{memberManagmentBean.member.email}" 
+<p:inputText id="email" value="#{membershipDemandManagmentBean.membershipDemand.email}" 
 required="true"
 requiredMessage="*The Email field is required"
 validatorMessage="*Email not valide."
 >
 <f:validateRegex pattern=".+\@.+\..+" />
-<p:ajax event="keyup" update="outEmail" listener="#{memberManagmentBean.checkEmail(memberManagmentBean.member.email)}" />
+<p:ajax event="keyup" update="outEmail" listener="#{membershipDemandManagmentBean.checkEmail(membershipDemandManagmentBean.membershipDemand.email)}" />
 </p:inputText>
 
 
@@ -85,7 +84,7 @@ validatorMessage="*Email not valide."
 <h:outputText value="Password" styleClass="control-label col-md-4"/>
  <div class="col-md-8">
 
-<p:password value="#{memberManagmentBean.member.password}" 
+<p:password value="#{membershipDemandManagmentBean.membershipDemand.password}" 
 id="password" 
 required="true"
 requiredMessage="*The password field is required"
@@ -99,7 +98,7 @@ requiredMessage="*The password field is required"
 <div class="form-group">
 <h:outputText value="FirstName"  styleClass="control-label col-md-4"/>
 <div class="col-md-8">
-<p:inputText id="firstname"  value="#{memberManagmentBean.member.firstName}"  
+<p:inputText id="firstname"  value="#{membershipDemandManagmentBean.membershipDemand.firstName}"  
 required="true"
 requiredMessage="*The firstname field is required"
 />
@@ -111,7 +110,7 @@ requiredMessage="*The firstname field is required"
 <div class="form-group">
 <h:outputText value="LastName"  styleClass="control-label col-md-4"/>
  <div class="col-md-8">
-<p:inputText id="lastname" value="#{memberManagmentBean.member.lastName}" 
+<p:inputText id="lastname" value="#{membershipDemandManagmentBean.membershipDemand.lastName}" 
 
 required="true"
 requiredMessage="*The lastname field is required"
@@ -121,15 +120,30 @@ requiredMessage="*The lastname field is required"
 
 </div>
 
+
+<div class="form-group">
+<h:outputText value="Role" styleClass="control-label col-md-4" />
+ <div class="col-md-8">
+<h:selectOneMenu value="#{membershipDemandManagmentBean.membershipDemand.role}" styleClass="form-control"
+   id="role" 
+required="true"
+requiredMessage="*The role field is required"
+style="width: 200px;"
+>
+<f:selectItem itemLabel="Select a role" itemValue=""/>
+<f:selectItems value="#{myData.selectListRoles}"/>
+</h:selectOneMenu>
+ 
+</div>
+</div>
 <div class="form-group">
 <h:outputText value="Birth Date" styleClass="control-label col-md-4"/>
  <div class="col-md-8">
-<p:calendar value="#{memberManagmentBean.member.birthDate}"   
+<p:calendar value="#{membershipDemandManagmentBean.membershipDemand.birthDate}"   
 id="popup"
 required="true"
 requiredMessage="*The Birth Date field is required"
 pattern="dd-MM-yyyy"
-navigator="true" mask="true"
 >
 
 </p:calendar> 
@@ -137,10 +151,13 @@ navigator="true" mask="true"
 </div>
 </div>
 
+
+
+
 <div class="form-group">
 <h:outputText value="Gender" styleClass="control-label col-md-4"/>
  <div class="col-md-8">
-<h:selectOneMenu value="#{memberManagmentBean.member.gender}" styleClass="form-control"
+<h:selectOneMenu value="#{membershipDemandManagmentBean.membershipDemand.gender}" styleClass="form-control"
 id="gender" 
 required="true"
 requiredMessage="*The Gender field is required"
@@ -149,18 +166,31 @@ style="width: 200px;"
 <f:selectItem itemLabel="Select  gender" itemValue=""/>
 <f:selectItems value="#{myData.genders}"/>
 </h:selectOneMenu>
-<!--  <p:message for="gender" style="color: red"/> -->
+
 </div>
 </div>
 
+<div class="form-group">
+<h:outputText value="Description"  styleClass="control-label col-md-2"/>
+ <div class="col-md-8">
+<p:inputTextarea id="description" value="#{membershipDemandManagmentBean.membershipDemand.lastName}" 
 
+required="true"
+requiredMessage="*The lastname field is required"
+style="width:300px"
+ />
+<!--  <p:message for="lastname" style="color: red"/> -->
+</div>
+
+</div>
 
 
 <div class="form-group">
  <div class="col-md-4">
  </div>
  <div class="col-md-4">
-<h:commandButton action="#{memberManagmentBean.addNewVisitor()}" value="Rgister" styleClass="btn btn-primary"  />
+<h:commandButton action="#{membershipDemandManagmentBean.addNewMember()}" value="Add demand" styleClass="btn btn-primary"  />
+
 </div>
 </div>
 

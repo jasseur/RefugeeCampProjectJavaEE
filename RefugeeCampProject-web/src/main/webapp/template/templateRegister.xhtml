@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	   xmlns:p="http://primefaces.org/ui">
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+   xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<ui:include src="/template/header.xhtml" />	
@@ -16,20 +17,8 @@
 <div class="menu-btn">
 <img src=" http://localhost:18080/RefugeeCampProject-web/ressources/images/login/logohome.png" alt="Mycity"/> 
 </div>
-<div class="pushy pushy-left">
-<div class="profile">
-<div class="avatar"><img src="http://localhost:8081/RefugeeCampProjectJEE/profilepics/#{loginBean.member.login}.jpg" alt="#"/></div>
-<h3><a href="/RefugeeCampProject-web/MembershipManagment/myProfile.xhtml">#{loginBean.member.login}</a></h3>
-<form>
-<h3><a href="/RefugeeCampProject-web/MembershipManagment/myProfile.xhtml">#{loginBean.member.role}</a></h3>
-<!-- logout  -->
 
-</form>
-</div>
 
-	<ui:include src="/template/sideMenu.xhtml" />
-	
-</div >
 
 
 
@@ -40,26 +29,39 @@
 <h:form>
 <div class="col-md-12">
 
-
-<h:commandButton action="#{loginBean.doLogout()}" value="Logout"  styleClass="green_btn_header btn"/>
+<h:commandButton action="#{loginBean.doLogout()}" value="Login"  styleClass="green_btn_header btn"/>
 </div>
 </h:form>
 </div>
 </div>
 </div>
 </div>
-<ui:insert name="content">
+<div class="container page_info">
+<!--the animated picture-->
+
+</div>
+
+<div class="container contant">
+<div class="row cont">
+<div class="col-md-3 mobile_none sidebar">
+<div class="user_vis">
+<span><i class="fa fa-map-marker"></i>RefugeeCamp</span>
+<div></div>
+</div>
+<!-- hetha to add some menus  !!!!!!!!!  --> 
+</div>
+<div class="col-md-9 basic vp">
+
+	<ui:insert name="content">
 	<!-- lenna on add our main thinks -->
+	</ui:insert>
 
 
+</div>
+</div>
+</div>
 
 
-</ui:insert>
-
-
-
-	
-	
 	<ui:include src="/template/footer.xhtml" />
 </h:body>
 

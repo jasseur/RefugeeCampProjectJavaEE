@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -46,6 +47,8 @@ public class MissionManagmentBean  implements Serializable{
 
 	private boolean staffHasAccount;
 	private String staffHasAccountString;
+	
+	private List<Member> availableMembers = new ArrayList<Member>();
 	
 	
 	@EJB
@@ -118,16 +121,30 @@ public class MissionManagmentBean  implements Serializable{
 		  
 		  newMission.setCamp(new Camp());
 		  newMission.setMember(new Member());
-		  
+
 		  mission.setCamp(new Camp());
 		  mission.setMember(new Member());
 	}
 	
 	
+	public String refreshAvailableMembers(){
+		
+		
+		if(newMission.getType().equals("Doctor"))
+			this.availableMembers=  mms.getAvailableDoctors(newMission.getStartDate(), newMission.getEndDate(),newMission.getType());
+		
+		else if(newMission.getType().equals("Teacher"))
+			this.availableMembers= mms.getAvailableTeachers(newMission.getStartDate(), newMission.getEndDate(),newMission.getType());
+		
+		else
+			this.availableMembers= mms.getAvailableMembers(newMission.getStartDate(), newMission.getEndDate(),newMission.getType());
+	
+		return "assignMission";
+	}
 	// assign Mission View members List
 	public List<Member> getAvailableMembers()
 	{	
-		return mms.getAvailableMembers(newMission.getStartDate(), newMission.getEndDate(),newMission.getType());
+	return this.availableMembers;
 	}
 	
 	
@@ -151,11 +168,20 @@ public class MissionManagmentBean  implements Serializable{
 		newMission.setCamp(selectedCamp);
 		mms.addMission(newMission);
 		addSatff();
+		newMission= new Mission();
 		 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,member.getLogin() +
 				 " assigned to " + selectedCamp.getName(), "")); 
 		return "detailsCamp";
 	}
 	
+    
+   public String deleteMission(Mission mission){
 	
-	
+	   mms.deleteMission(mission);
+	   return "detailsCamp";
+   }
+	public List<Mission> getAllMissionsByMember(Member member){
+		
+		return mms.getAllMissions(member);
+	}
 }

@@ -48,7 +48,7 @@ public class Member implements Serializable {
 		super();
 	}
 	public Member(String login, String email, String password, String firstName, String lastName, Date birthDate,
-			Date registrationDate, Gender gender) {
+			Date registrationDate, Gender gender ,Role role) {
 		super();
 		this.login = login;
 		this.email = email;
@@ -58,6 +58,7 @@ public class Member implements Serializable {
 		this.birthDate = birthDate;
 		this.registrationDate = registrationDate;
 		this.gender = gender;
+		this.role=role;
 	}
 	public Member(int id, String login, String email, String password, String firstName, String lastName,
 			Date birthDate, Date registrationDate, Gender gender) {

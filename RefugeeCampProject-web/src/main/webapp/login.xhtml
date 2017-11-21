@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
 	xmlns:h="http://java.sun.com/jsf/html">
 
 
@@ -37,8 +38,8 @@
     <button>create</button>
     <p class="message">Already registered? <a href="#">Sign In</a></p>
   </form>
-  <form class="login-form">
-  <h:form>
+  <h:form class="login-form">
+
  <p style="color:red"> #{loginBean.message}</p>
    <h:message for="btn"/>
    <label> Login or Email address</label>
@@ -62,7 +63,7 @@
     <p class="message">Not registered? <a href="visitor/register.xhtml">Create an account</a></p>
     
   </h:form>
-  </form>
+
 </div>
  
   <script src="ressources/Scripts/jslogin/jquery.js"></script>

@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/template/template.xhtml">
+
+
+<ui:define name="content" >
+
+<div class="place_li_cont">
+<h:form>
+
+
+
+<h:dataTable value="#{membershipDemandManagmentBean.membershipDemands}" var="membershipDemand" >
+<h:column>
+
+<!--place style list-->
+<div class="pg style_list">
+<div class="con" >
+<img src="http://localhost:8081/RefugeeCampProjectJEE/profilepics/#{membershipDemand.login}.jpg" alt="" />
+<div class="content_li">
+<h2><a >#{membershipDemand.firstName} #{membershipDemand.lastName}</a><span></span></h2>
+<a>#{membershipDemand.registrationDate} </a>
+<span>
+#{membershipDemand.description} 
+</span>
+<a href="/RefugeeCampProject-web/MembershipManagment/membershipDemandDetails.xhtml" class="comm">#{membershipDemand.role} </a> 
+<h:commandButton action="#{membershipDemandManagmentBean.detailsMembership(membershipDemand)}" value="Details" />
+</div>
+</div>
+</div>
+</h:column>
+</h:dataTable>
+
+</h:form>
+</div>
+</ui:define>
+</ui:composition>

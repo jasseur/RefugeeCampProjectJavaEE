@@ -53,6 +53,8 @@
            <div class="col-md-8">
              <p:commandButton action="updateCamp?faces-redirect=true" value="Update" styleClass="btn btn-default" />
         	 <p:commandButton action="#{campDetailsBean.assignMissionRedirect()}" value="Add mission" styleClass="btn btn-default" />
+        	 <p:commandButton action="listCamps?faces-redirect=true" value="Back to list" styleClass="btn btn-default" />
+        	 <p:commandButton action="#{campDetailsBean.deleteCamp()}" value="Remove camp" styleClass="btn btn-default" onclick="return confirm('Do you want to remove this camp?')" />
         	
         	</div>
         	</div> 
@@ -60,7 +62,7 @@
 
 </h:form>
 	<div class="reviews">
-<h:dataTable value="#{missionManagmentBean.missions}" var="mission" >
+<h:dataTable value="#{campDetailsBean.missions}" var="mission" >
 <h:column>
 <!--review-->
 <div class="rev">
@@ -74,6 +76,9 @@
 #{mission.description}
  </div>
 </div>
+<h:form>
+<h:commandButton action="#{missionManagmentBean.deleteMission(mission)}" value="Delete mission" styleClass="btn btn-default" onclick="return confirm('You want to delete this mission?')" />
+</h:form>
 </div>
 <!--review end-->
 </h:column>

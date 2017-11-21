@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 
 import tn.esprit.RefugeeCampProject.Types.Gender;
 import tn.esprit.RefugeeCampProject.Types.Role;
+import tn.esprit.RefugeeCampProject.Types.RoleSelectList;
 
 @Entity
 public class MembershipDemand implements Serializable {
@@ -31,7 +32,7 @@ public class MembershipDemand implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
 	@Enumerated(EnumType.STRING)
-	private Role role;
+	private RoleSelectList role;
 	private String description;
 	private boolean accepted;
 	
@@ -45,7 +46,7 @@ public class MembershipDemand implements Serializable {
 	}
 
 	public MembershipDemand(String login, String email, String password, String firstName, String lastName,
-			Date birthDate, Date registrationDate, Gender gender, Role role, String description, boolean accepted) {
+			Date birthDate, Date registrationDate, Gender gender, RoleSelectList role, String description, boolean accepted) {
 		super();
 		this.login = login;
 		this.email = email;
@@ -61,7 +62,7 @@ public class MembershipDemand implements Serializable {
 	}
 
 	public MembershipDemand(int id, String login, String email, String password, String firstName, String lastName,
-			Date birthDate, Date registrationDate, Gender gender, Role role, String description, boolean accepted) {
+			Date birthDate, Date registrationDate, Gender gender, RoleSelectList role, String description, boolean accepted) {
 		super();
 		this.id = id;
 		this.login = login;
@@ -109,7 +110,7 @@ public class MembershipDemand implements Serializable {
 		this.firstName = firstName;
 	}
 
-	public String getLastName() {
+	public String roleMember() {
 		return lastName;
 	}
 
@@ -173,14 +174,19 @@ public class MembershipDemand implements Serializable {
 		this.id = id;
 	}
 
-	public Role getRole() {
+	public RoleSelectList getRole() {
 		return role;
 	}
 
-	public void setRole(Role role) {
+	public void setRole(RoleSelectList role) {
 		this.role = role;
 	}
-	
+
+	public String getLastName() {
+		return lastName;
+	}
+
+
 	
 
 }

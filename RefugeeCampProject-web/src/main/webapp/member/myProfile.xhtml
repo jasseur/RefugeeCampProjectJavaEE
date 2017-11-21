@@ -2,6 +2,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
 	template="/template/templateProfile.xhtml">
 
 <ui:define name="content" >
@@ -63,7 +64,31 @@
 
 
 <div class="head_rev"><h2 style="color: red">Missons :</h2> </div>
+<h:dataTable value="#{missionManagmentBean.getAllMissionsByMember(loginBean.member)}" var="mission" >
+<h:column>
+<!--review-->
+<div class="rev">
+<div class="user">
 
+<img src="http://localhost:8081/RefugeeCampProjectJEE/profilepics/#{mission.member.login}.jpg" alt="" /></div>
+<div class="texts">
+<div class="head_rev"><a href="02.html"> #{mission.type}</a> <span></span></div>
+<div class="text_rev"> Begin: #{mission.startDate.toString().substring(0,10)} <br /> Ends: #{mission.endDate.toString().substring(0,10)}
+<br />
+Camp :
+<br />
+#{mission.camp.name}
+
+
+ </div>
+</div>
+<h:form>
+<h:commandButton action="#{missionManagmentBean.deleteMission(mission)}" value="Delete mission" styleClass="btn btn-default" onclick="return confirm('You want to delete this mission?')" />
+</h:form>
+</div>
+<!--review end-->
+</h:column>
+</h:dataTable>
 <div class="text_rev">
 
 </div>

@@ -21,7 +21,10 @@ import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
 
 import tn.esprit.RefugeeCampProject.Entities.CampManagment.Camp;
+import tn.esprit.RefugeeCampProject.Entities.CampManagment.Mission;
 import tn.esprit.RefugeeCampProject.RefugeeCampProject.services.CampManagment.CampManagmentService;
+import tn.esprit.RefugeeCampProject.RefugeeCampProject.services.MissionManagment.MissionManagmentService;
+
 import javax.faces.context.FacesContext;
 @ManagedBean
 @SessionScoped
@@ -39,16 +42,19 @@ public class CampDetailsBean  implements Serializable{
 	// info selected camp
 	private Camp selectedCamp = new Camp();
 	
-	
+	private List<Mission> missions;
 
 	@EJB
 	CampManagmentService cms;
+	@EJB
+	MissionManagmentService mms;
 	
 	@ManagedProperty(value="#{loginBean}")
 	LoginBean loginBean;
 	
 	@ManagedProperty(value="#{missionManagmentBean}")
 	MissionManagmentBean missionManagmentBean;
+
 
 	
 	//getters and setters
@@ -112,6 +118,17 @@ public class CampDetailsBean  implements Serializable{
 	public void setMissionManagmentBean(MissionManagmentBean missionManagmentBean) {
 		this.missionManagmentBean = missionManagmentBean;
 	}
+	
+	
+	public void setMissions(List<Mission> missions) {
+		this.missions = missions;
+	}
+
+	@PostConstruct
+	public void init()
+	{
+		missionManagmentBean.setSelectedCamp(selectedCamp);
+	}
 
 	// details camp view
     public String detailsCamp(){
@@ -148,6 +165,21 @@ public class CampDetailsBean  implements Serializable{
    
    public String assignMissionRedirect(){
    	missionManagmentBean.setSelectedCamp(selectedCamp);
-   	return "assignMission";
+   	return "assignMission?faces-redirect=true";
+   }
+   
+   public List<Mission> getMissions() {
+		this.missions=mms.getAllMissions(selectedCamp);
+		return missions;
+	}
+   
+   public String deleteCamp(){
+		  
+		  cms.deleteCamp(selectedCamp);
+		  return "listCamps?faces-redirect=true";
+	  }
+   
+   public void updateMission(){
+	   
    }
 }

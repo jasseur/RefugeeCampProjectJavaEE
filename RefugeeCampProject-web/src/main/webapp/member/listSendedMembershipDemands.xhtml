@@ -7,12 +7,13 @@
 
 
 <ui:define name="content" >
-
+<h:form>
 <div class="place_li_cont">
 <div class="head_rev"><center><h2 style="color: red">Membership demands</h2></center> </div>
-<h:form>
-<a href="addMembershipDemand.xhtml" class="btn" >Add</a>
-<p:dataTable value="#{membershipDemandManagmentBean.membershipDemandsByMemberId}" var="membershipDemand" 
+
+<a href="addNewDemand.xhtml" class="btn btn-default">Add new demand</a>
+
+<p:dataTable value="#{membershipDemandManagmentBean.membershipDemandsByMemberId}" var="membershipDemandItem" 
 widgetVar="demandes"
 emptyMessage="No demands found with given criteria"
 filteredValue="#{membershipDemandManagmentBean.membershipDemandsFiltred}">
@@ -30,21 +31,22 @@ filteredValue="#{membershipDemandManagmentBean.membershipDemandsFiltred}">
 <div class="pg style_list">
 
 <div class="con" >
-<img src="http://localhost:8081/RefugeeCampProjectJEE/profilepics/#{membershipDemand.login}.jpg" alt="" />
+<img src="http://localhost:8081/RefugeeCampProjectJEE/profilepics/#{membershipDemandItem.login}.jpg" alt="" />
 <div class="content_li">
-<h2><a >#{membershipDemand.firstName} #{membershipDemand.lastName}</a><span></span></h2>
-<a>#{membershipDemand.registrationDate.toString().substring(0,16)} </a>
+<h2><a >#{membershipDemandItem.firstName} #{membershipDemandItem.lastName}</a><span></span></h2>
+<a> #{membershipDemandItem.role} </a>
 <span>
-#{membershipDemand.description} 
+#{membershipDemandItem.description} 
 </span>
-<a  class="comm">#{membershipDemand.role} </a> 
+<a  class="comm">#{membershipDemandItem.registrationDate.toString().substring(0,16)} </a> 
+<a  class="comm">#{membershipDemandItem.accepted == true ? "Accepted" : "Not Accepted"} </a> 
 
 </div>
 <div class="content_li">
-<h:form>
-<h:commandButton action="#{membershipDemandManagmentBean.detailsSendedMembership(membershipDemand)}" value="Details" styleClass="btn btn-info" />
-<h:commandButton action="#{membershipDemandManagmentBean.detailsSendedMembership(membershipDemand)}" value="Delete" styleClass="btn btn-default" onclick="return confirm('You want to delete?');"/>
-</h:form>
+<!-- <h:form> -->
+<!-- <h:commandButton action="#{membershipDemandManagmentBean.detailsSendedMembership(membershipDemand)}" value="Details" styleClass="btn btn-info" /> -->
+<!-- <h:commandButton action="#{membershipDemandManagmentBean.detailsSendedMembership(membershipDemand)}" value="Delete" styleClass="btn btn-default" onclick="return confirm('You want to delete?');"/> -->
+<!-- </h:form> -->
 </div>
 </div>
 
@@ -53,7 +55,8 @@ filteredValue="#{membershipDemandManagmentBean.membershipDemandsFiltred}">
 </p:column>
 </p:dataTable>
 
-</h:form>
+
 </div>
+</h:form>
 </ui:define>
 </ui:composition>

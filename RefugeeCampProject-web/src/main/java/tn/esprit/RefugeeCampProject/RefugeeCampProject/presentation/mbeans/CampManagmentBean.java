@@ -21,6 +21,7 @@ import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
 
 import tn.esprit.RefugeeCampProject.Entities.CampManagment.Camp;
+import tn.esprit.RefugeeCampProject.Entities.CampManagment.Mission;
 import tn.esprit.RefugeeCampProject.RefugeeCampProject.services.CampManagment.CampManagmentService;
 import javax.faces.context.FacesContext;
 @ManagedBean
@@ -159,7 +160,8 @@ public class CampManagmentBean  implements Serializable{
     	// i added camp to markers 
     	campDetailsBean.setSelectedCamp(selectedCamp =(Camp)( (Marker) event.getOverlay()).getData());
     }
-  
+
+
     
 
     

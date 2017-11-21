@@ -30,7 +30,7 @@ public  class CampManagmentService implements CampManagmentServiceRemote {
 
 	@Override
 	public void deleteCamp(Camp camp) {
-		em.merge(camp);
+		camp=em.merge(camp);
 		em.remove(camp);
 	}
 

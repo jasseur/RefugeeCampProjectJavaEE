@@ -71,9 +71,18 @@ public  class MembershipDemandManagmentService implements MembershipDemandManagm
 		return query.getResultList();
 	}
 	@Override
-	public List<MembershipDemand> getAllMembershipDemandsByMembeNameLike(String name) {
-		TypedQuery<MembershipDemand> query = em.createQuery("Select c from MembershipDemand c where c.firstName like :name",MembershipDemand.class)
+	public List<MembershipDemand> getAllMembershipDemandsByMembeNameLike(String name ,Member member) {
+		TypedQuery<MembershipDemand> query = em.createQuery("Select c from MembershipDemand c where c.firstName like :name and c.member=:member",MembershipDemand.class)
+				.setParameter("name", "%"+name+"%")
+				.setParameter("member", member);
+		return query.getResultList();
+	}
+	
+	@Override
+	public List<MembershipDemand> getAllMembershipDemandsByMembeNameLike(String name ) {
+		TypedQuery<MembershipDemand> query = em.createQuery("Select c from MembershipDemand c where (c.firstName like :name or c.lastName like :name) and c.accepted=false",MembershipDemand.class)
 				.setParameter("name", "%"+name+"%");
+
 		return query.getResultList();
 	}
 

@@ -10,31 +10,43 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 
 
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.servlet.http.Part;
 
-import org.apache.commons.io.FileUtils;
-import org.primefaces.model.UploadedFile;
 
 import tn.esprit.RefugeeCampProject.Entities.RegistrationManagment.Member;
 import tn.esprit.RefugeeCampProject.Entities.RegistrationManagment.MembershipDemand;
 import tn.esprit.RefugeeCampProject.RefugeeCampProject.services.MembershipDemandManagment.MembershipDemandManagmentService;
 import tn.esprit.RefugeeCampProject.RefugeeCampProject.services.RegistrationManagment.MemberManagmentService;
+import tn.esprit.RefugeeCampProject.Types.Gender;
+import tn.esprit.RefugeeCampProject.Types.Role;
+import tn.esprit.RefugeeCampProject.Types.RoleSelectList;
 
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class MembershipDemandManagmentBean {
 	
 	
 	private int idMembershipDemand;
-	private MembershipDemand membershipDemand = new MembershipDemand();
+	private MembershipDemand membershipDemand = new MembershipDemand() ;
 	private List<MembershipDemand> membershipDemands;
-	private List<MembershipDemand> membershipDemandsFiltred;
+	private List<MembershipDemand> allMembershipDemandsFiltred;
 	private String nameFilter;
 	private Part  file;
 	@EJB
@@ -45,8 +57,76 @@ public class MembershipDemandManagmentBean {
 	@ManagedProperty(value="#{loginBean}")
 	LoginBean loginBean;
 	
+	//check attributes
+	private String loginCheckMessage;
+	private String emailCheckMessage;
+	
+	private String login;
+	private String email;
+	private String firstName;
+	private String lastName;
+	private Date birthDate;
+	private Date registrationDate;
+	@Enumerated(EnumType.STRING)
+	private Gender gender;
+	@Enumerated(EnumType.STRING)
+	private RoleSelectList role;
+	private String description;
+
 	
 	
+	@EJB
+	MemberManagmentService mms;
+
+	@PostConstruct
+	private void init(){
+		membershipDemand = new MembershipDemand();
+		
+		
+	}
+	
+	
+	
+	public String getLogin() {
+		return login;
+	}
+
+
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+
+	public String getLoginCheckMessage() {
+		return loginCheckMessage;
+	}
+
+	public void setLoginCheckMessage(String loginCheckMessage) {
+		this.loginCheckMessage = loginCheckMessage;
+	}
+
+	public String getEmailCheckMessage() {
+		return emailCheckMessage;
+	}
+
+	public void setEmailCheckMessage(String emailCheckMessage) {
+		this.emailCheckMessage = emailCheckMessage;
+	}
+
 	public LoginBean getLoginBean() {
 		return loginBean;
 	}
@@ -79,8 +159,6 @@ public class MembershipDemandManagmentBean {
 		this.membershipDemand = membershipDemand;
 	}
 	
-	
-	
 
 	public String getNameFilter() {
 		return nameFilter;
@@ -91,7 +169,7 @@ public class MembershipDemandManagmentBean {
 	}
 
 	public void setMembershipDemandsFiltred(List<MembershipDemand> membershipDemandsFiltred) {
-		this.membershipDemandsFiltred = membershipDemandsFiltred;
+		this.allMembershipDemandsFiltred = membershipDemandsFiltred;
 	}
 
 	//membership demands viewed by manager only
@@ -112,65 +190,127 @@ public class MembershipDemandManagmentBean {
 	
 	//membership demand : all members can use it
 	public String addNewMember(){
+		membershipDemand= new MembershipDemand();
+		
+		membershipDemand.setLogin(login);
+		membershipDemand.setEmail(email);
+		membershipDemand.setFirstName(firstName);
+		membershipDemand.setLastName(lastName);
+		membershipDemand.setRole(role);
+		membershipDemand.setBirthDate(birthDate);
+		membershipDemand.setGender(gender);
+		membershipDemand.setDescription(description);
+		membershipDemand.setPassword("changeme");
 		membershipDemand.setRegistrationDate(new Date());
 		membershipDemand.setMember(loginBean.getMember());
 		mdms.addMembershipDemand(membershipDemand);
-		
-		//String destPath="P:/Esprit 4BI/PI Sprint Two/RefugeeCampProject/RefugeeCampProject-web/src/main/webapp/profilepics";
-		//String destPath="C:/wamp64/www/RefugeeCampProjectJEE/profilepics";
-		 
-		
-//		InputStream inputStr = null;
-//	    try {
-//	        inputStr = this.file.getInputstream();
-//	    } catch (IOException e) {
-//	        //log error
-//	    }
 	
-				
-//	    File destFile = new File(destPath);
-//
-//	    //use org.apache.commons.io.FileUtils to copy the File
-//	    try {                    
-//	        FileUtils.copyInputStreamToFile(inputStr, destFile);
-//	    } catch (IOException e) {
-//	        //log error
-//	    }
-				
-//				try (InputStream input = ((Part) file).getInputStream()) {
-//		        Files.copy(input,
-//		        		new File(destPath,membershipDemand.getLogin()+ ".jpg").toPath()
-//		        		,StandardCopyOption.REPLACE_EXISTING);
-//		    }
-//		    catch (IOException e) {
-//		        // Show faces message?
-//		    } 
+		  login="";
+		  email="";
+		  firstName="";
+		  lastName="";
+		  birthDate=null;
+		  registrationDate=null;
+		  description="";
+
 	return "listSendedMembershipDemands?faces-redirect = true";
 	}
 	
+	
+	public String getFirstName() {
+		return firstName;
+	}
+
+
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+
+
+	public String getLastName() {
+		return lastName;
+	}
+
+
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+
+
+	public Date getBirthDate() {
+		return birthDate;
+	}
+
+
+
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
+
+
+
+	public Date getRegistrationDate() {
+		return registrationDate;
+	}
+
+
+
+	public void setRegistrationDate(Date registrationDate) {
+		this.registrationDate = registrationDate;
+	}
+
+
+
+	public Gender getGender() {
+		return gender;
+	}
+
+
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
+
+
+	public RoleSelectList getRole() {
+		return role;
+	}
+
+
+
+	public void setRole(RoleSelectList role) {
+		this.role = role;
+	}
+
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
+
 	// listener ajax input file
 	public void save(){
 		String destPath="C:/wamp64/www/RefugeeCampProjectJEE/profilepics";
-//		try (InputStream input = ((Part) file).getInputStream()) {
-//	        Files.copy(input,
-//	        		new File(destPath,membershipDemand.getLogin()+ ".jpg").toPath()
-//	        		,StandardCopyOption.REPLACE_EXISTING);
-//	    }
-//	    catch (IOException e) {
-//	        // Show faces message?
-//	    } 
-		
-		
-		InputStream inputStr = null;
-	    File destFile = new File(destPath+"test.jpg");
-
-	    //use org.apache.commons.io.FileUtils to copy the File
-	    try {                    
-	        FileUtils.copyInputStreamToFile(inputStr, destFile);
-	    } catch (IOException e) {
-	        //log error
-	    }
-				
+		 try (InputStream input = file.getInputStream()) {
+		        Files.copy(input, new File(destPath,this.login+ ".jpg").toPath(),
+		        		StandardCopyOption.REPLACE_EXISTING);
+		    }
+		    catch (IOException e) {
+		        // Show faces message?
+		    } 	
 			
 		
 	}
@@ -191,6 +331,13 @@ public class MembershipDemandManagmentBean {
 	public String acceptDemand (){
 		this.membershipDemand.setAccepted(true);
 		mdms.updateMembershipDemand(membershipDemand);
+		Role roleMember;
+		if(membershipDemand.getRole() == RoleSelectList.Doctor)
+			roleMember=Role.Doctor;
+		else if(membershipDemand.getRole() == RoleSelectList.Teacher)
+			roleMember=Role.Teacher;
+		else 
+			roleMember=Role.Member;
 		Member member = new Member(membershipDemand.getLogin(),
 				membershipDemand.getEmail(),
 				"changeme",
@@ -198,9 +345,47 @@ public class MembershipDemandManagmentBean {
 				membershipDemand.getLastName(),
 				membershipDemand.getBirthDate(),
 				new Date(),
-				membershipDemand.getGender()
+				membershipDemand.getGender(),
+				roleMember
 				);
 		mmb.addMember(member);
+		
+		//send mail to member
+		
+		
+//		Properties props = new Properties();
+//		props.put("mail.smtp.host", "smtp.gmail.com");
+//		props.put("mail.smtp.socketFactory.port", "465");
+//		props.put("mail.smtp.socketFactory.class",
+//				"javax.net.ssl.SSLSocketFactory");
+//		props.put("mail.smtp.auth", "true");
+//		props.put("mail.smtp.port", "465");
+//		try {
+//		
+//			Session session = Session.getInstance(props,
+//			new javax.mail.Authenticator() {
+//				protected PasswordAuthentication getPasswordAuthentication() {
+//					return new PasswordAuthentication("jasserbenabdallah@gmail.com","jo@26252400");
+//				}
+//			});
+//
+//
+//			Message message = new MimeMessage(session);
+//			message.setFrom(new InternetAddress("jasserbenabdallah@gmail.com"));
+//			message.setRecipients(Message.RecipientType.TO,
+//					InternetAddress.parse(member.getEmail()));
+//			message.setSubject("ICRC Account");
+//			message.setText("Dear member," +
+//					"\n\n Confirm your password with the link bellow :"+
+//					"\n\n http://localhost:18080/RefugeeCampProject-web/");
+//
+//			Transport.send(message);
+//
+//		} catch (MessagingException e) {
+//			e.printStackTrace();
+//		}
+//		
+		
 		
 		return "listMembershipDemands?faces-redirect = true";
 		
@@ -213,12 +398,35 @@ public class MembershipDemandManagmentBean {
 		return "listMembershipDemands";	
 	}
 	
-
-	
-	public List<MembershipDemand> getMembershipDemandsFiltred() {
-		this .membershipDemands = mdms.getAllMembershipDemandsByMembeNameLike(this.nameFilter);
-		this.membershipDemandsFiltred = membershipDemands;
+	public List<MembershipDemand> getAllMembershipDemandsFiltred() {
+		this .membershipDemands = mdms.getAllMembershipDemandsByMembeNameLike(this.nameFilter );
+		this.allMembershipDemandsFiltred = membershipDemands;
 		return membershipDemands;
 	}
 	
+	
+	
+	public void setAllMembershipDemandsFiltred(List<MembershipDemand> allMembershipDemandsFiltred) {
+		this.allMembershipDemandsFiltred = allMembershipDemandsFiltred;
+	}
+
+	public List<MembershipDemand> getMembershipDemandsFiltred() {
+		this .membershipDemands = mdms.getAllMembershipDemandsByMembeNameLike(this.nameFilter ,loginBean.getMember());
+		this.allMembershipDemandsFiltred = membershipDemands;
+		return membershipDemands;
+	}
+	
+	
+	public void checkLogin(String login){
+		if(mms.checkLogin(login))
+			loginCheckMessage= "*Login has been used";
+		else loginCheckMessage= " ";
+	}
+	
+	// check mail used or not
+	public void checkEmail(String email){
+		if(mms.checkEmail(email))
+			emailCheckMessage= "*Email has been used";
+		else emailCheckMessage= " ";
+	}
 }
